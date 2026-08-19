@@ -4,10 +4,7 @@ import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class FreakagerAnimation {
     public static final AnimationDefinition POTIONS = AnimationDefinition.Builder.withLength(3.7917F)
             .addAnimation("all", new AnimationChannel(AnimationChannel.Targets.ROTATION,

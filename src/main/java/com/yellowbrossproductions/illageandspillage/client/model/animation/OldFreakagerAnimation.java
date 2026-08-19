@@ -7,10 +7,7 @@ import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.AnimationDefinition.Builder;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class OldFreakagerAnimation {
     public static final AnimationDefinition INTRO;
     public static final AnimationDefinition LAUGH;

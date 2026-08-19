@@ -7,10 +7,7 @@ import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.animation.AnimationChannel.Interpolations;
 import net.minecraft.client.animation.AnimationChannel.Targets;
 import net.minecraft.client.animation.AnimationDefinition.Builder;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class AbsorberAnimation {
     public static final AnimationDefinition ATTACK;
     public static final AnimationDefinition DEATH;
