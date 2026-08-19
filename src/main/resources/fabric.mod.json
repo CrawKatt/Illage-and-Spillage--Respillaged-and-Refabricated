@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "illageandspillage",
+  "version": "${version}",
+  "name": "Illage and Spillage: Respillaged",
+  "description": "A continuation of Yellowbross Productions's Illage and Spillage ported to Fabric.",
+  "authors": [
+    "Original mod by Yellowbross Productions",
+    "Port and subsequent updates by TheDarkPeasant",
+    "Fabric port by CrawKatt"
+  ],
+  "license": "All Rights Reserved",
+  "icon": "logo.png",
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/illage-and-spillage-finally-ported",
+    "issues": "https://github.com/TheDarkPeasant/Illage-and-Spillage--Respillaged/issues"
+  },
+  "entrypoints": {
+    "main": [
+      "com.yellowbrossproductions.illageandspillage.IllageAndSpillage"
+    ],
+    "client": [
+      "com.yellowbrossproductions.illageandspillage.client.IllageAndSpillageClient"
+    ]
+  },
+  "mixins": [
+    {
+      "config": "illageandspillage.mixins.json",
+      "environment": "*"
+    }
+  ],
+  "accessWidener": "illageandspillage.accesswidener",
+  "depends": {
+    "fabricloader": ">=0.16.2",
+    "fabric-api": "*",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "forgeconfigapiport": ">=8.0.0"
+  }
+}
