@@ -10,10 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Pose;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class ChagrinSentryRenderer extends MobRenderer<ChagrinSentryEntity, ChagrinSentryModel<ChagrinSentryEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation("illageandspillage", "textures/entity/engineer/chagrin_sentry.png");
 

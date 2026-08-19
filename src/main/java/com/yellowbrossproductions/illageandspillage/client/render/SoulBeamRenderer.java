@@ -11,15 +11,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
 import java.util.Random;
 
-@OnlyIn(Dist.CLIENT)
 public class SoulBeamRenderer extends EntityRenderer<SoulBeamEntity> {
     private static final ResourceLocation TEXTURE = new ResourceLocation("illageandspillage", "textures/entity/spiritcaller/soul_beam.png");
 

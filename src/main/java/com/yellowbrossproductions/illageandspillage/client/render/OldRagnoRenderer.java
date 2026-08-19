@@ -7,10 +7,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class OldRagnoRenderer extends MobRenderer<OldRagnoEntity, OldRagnoModel<OldRagnoEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation("illageandspillage", "textures/entity/freakager/old/freakager.png");
     private static final ResourceLocation ARACHNOPHOBE = new ResourceLocation("illageandspillage", "textures/entity/freakager/old/freakager_arachnophobe.png");

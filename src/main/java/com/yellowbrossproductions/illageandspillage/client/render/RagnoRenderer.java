@@ -8,10 +8,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class RagnoRenderer extends MobRenderer<RagnoEntity, RagnoModel<RagnoEntity>> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(IllageAndSpillage.MOD_ID, "textures/entity/freakager/ragno/ragno.png");

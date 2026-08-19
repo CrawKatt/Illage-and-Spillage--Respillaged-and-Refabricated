@@ -8,10 +8,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class VillagerSoulRenderer extends MobRenderer<VillagerSoulEntity, VillagerSoulModel<VillagerSoulEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation("illageandspillage", "textures/entity/freakager/villager_soul.png");
     private static final ResourceLocation CRYOUT = new ResourceLocation("illageandspillage", "textures/entity/freakager/villager_soul_cryout.png");

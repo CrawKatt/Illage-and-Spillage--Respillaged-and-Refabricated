@@ -11,10 +11,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class IgniterOverheatLayer<T extends LivingEntity> extends RenderLayer<T, IgniterModel<T>> {
     private static final RenderType LAYER1 = RenderType.eyes(new ResourceLocation("illageandspillage", "textures/entity/igniter/heat_layer1.png"));
     private static final RenderType LAYER2 = RenderType.eyes(new ResourceLocation("illageandspillage", "textures/entity/igniter/heat_layer2.png"));

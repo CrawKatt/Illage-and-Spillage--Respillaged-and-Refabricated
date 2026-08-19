@@ -23,12 +23,9 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.AbstractSkullBlock;
 import net.minecraft.world.level.block.SkullBlock;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Map;
 
-@OnlyIn(Dist.CLIENT)
 public class HeadItemLayer<T extends LivingEntity, M extends EntityModel<T> & CustomHeadedModel> extends RenderLayer<T, M> {
     private final float scaleX;
     private final float scaleY;

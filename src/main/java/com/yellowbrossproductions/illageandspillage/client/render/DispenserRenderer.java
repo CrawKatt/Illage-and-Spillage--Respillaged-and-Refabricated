@@ -5,12 +5,9 @@ import com.yellowbrossproductions.illageandspillage.entities.DispenserEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Calendar;
 
-@OnlyIn(Dist.CLIENT)
 public class DispenserRenderer extends MobRenderer<DispenserEntity, DispenserModel<DispenserEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation("illageandspillage", "textures/entity/magispeller/dispenser.png");
     private static final ResourceLocation CHRISTMAS = new ResourceLocation("illageandspillage", "textures/entity/magispeller/christmas/dispenser_christmas.png");

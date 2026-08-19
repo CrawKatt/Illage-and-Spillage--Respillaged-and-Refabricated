@@ -6,10 +6,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class EyesoreRenderer extends MobRenderer<EyesoreEntity, EyesoreModel<EyesoreEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation("illageandspillage", "textures/entity/freakager/eyesore.png");
     private static final ResourceLocation SCARED = new ResourceLocation("illageandspillage", "textures/entity/freakager/eyesore_shocked.png");

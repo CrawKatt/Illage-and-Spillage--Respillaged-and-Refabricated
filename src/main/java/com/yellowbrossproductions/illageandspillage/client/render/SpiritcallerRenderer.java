@@ -16,13 +16,10 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Matrix4f;
 
 import java.util.Random;
 
-@OnlyIn(Dist.CLIENT)
 public class SpiritcallerRenderer extends MobRenderer<SpiritcallerEntity, SpiritcallerModel<SpiritcallerEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation("illageandspillage", "textures/entity/spiritcaller/spiritcaller_inactive.png");
     private static final ResourceLocation ACTIVE = new ResourceLocation("illageandspillage", "textures/entity/spiritcaller/spiritcaller.png");

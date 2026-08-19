@@ -13,10 +13,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class FreakagerRenderer<T extends FreakagerEntity> extends MobRenderer<T, FreakagerModel<T>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(IllageAndSpillage.MOD_ID, "textures/entity/freakager/freakager.png");
     private static final ResourceLocation EYE = new ResourceLocation(IllageAndSpillage.MOD_ID, "textures/entity/freakager/eye.png");

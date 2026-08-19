@@ -14,10 +14,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class FreakagerVillaFaceLayer<T extends LivingEntity> extends RenderLayer<T, FreakagerModel<T>> {
     private static final ResourceLocation FACE1 = new ResourceLocation(IllageAndSpillage.MOD_ID, "textures/entity/freakager/villaface/villager3.png");
     private static final ResourceLocation FACE2 = new ResourceLocation(IllageAndSpillage.MOD_ID, "textures/entity/freakager/villaface/villager2.png");

@@ -9,10 +9,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class AbsorberRenderer extends MobRenderer<AbsorberEntity, AbsorberModel<AbsorberEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation("illageandspillage", "textures/entity/absorber/absorber1.png");
     private static final ResourceLocation DEGRADE1 = new ResourceLocation("illageandspillage", "textures/entity/absorber/absorber2.png");

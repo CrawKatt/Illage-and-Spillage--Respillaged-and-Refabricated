@@ -7,10 +7,7 @@ import com.yellowbrossproductions.illageandspillage.entities.HinderEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class HinderRenderer extends MobRenderer<HinderEntity, HinderModel<HinderEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation("illageandspillage", "textures/entity/engineer/hinder.png");
     private static final ResourceLocation HEALING = new ResourceLocation("illageandspillage", "textures/entity/engineer/hinder_heal.png");

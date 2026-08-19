@@ -11,12 +11,9 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Calendar;
 
-@OnlyIn(Dist.CLIENT)
 public class OldMagispellerRenderer extends MobRenderer<OldMagispellerEntity, OldMagispellerModel<OldMagispellerEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation("illageandspillage", "textures/entity/magispeller/magispeller.png");
     private static final ResourceLocation NOTHING = new ResourceLocation("illageandspillage", "textures/entity/magispeller/magispeller_nothing.png");
