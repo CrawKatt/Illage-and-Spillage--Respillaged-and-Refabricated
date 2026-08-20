@@ -33,7 +33,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.Iterator;
 import java.util.Objects;
@@ -182,7 +181,7 @@ public class ChagrinSentryEntity extends Raider implements ICanBeAnimated, Engin
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_DISPENSER_DESTROY.get();
+        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_DISPENSER_DESTROY;
     }
 
     @Override
@@ -337,7 +336,7 @@ public class ChagrinSentryEntity extends Raider implements ICanBeAnimated, Engin
                 packet.queueParticle(ParticleTypes.SMOKE, false, new Vec3(this.getRandomX(0.15) + (-0.5 + this.random.nextDouble()) * 2.5, this.getRandomY() + (-0.5 + this.random.nextDouble()) * 1.5, this.getRandomZ(0.15) + (-0.5 + this.random.nextDouble()) * 2.5), new Vec3(0, 0, 0));
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -374,7 +373,7 @@ public class ChagrinSentryEntity extends Raider implements ICanBeAnimated, Engin
         abstractarrowentity.shoot(d0, d1 + d3 * 0.20000000298023224, d2, speed, inaccuracy);
         this.level().addFreshEntity(abstractarrowentity);
 
-        this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_SHOOT.get(), 0.5f, this.getVoicePitch());
+        this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_SHOOT, 0.5f, this.getVoicePitch());
         this.playSound(SoundEvents.ARROW_SHOOT, 1.0f, this.getVoicePitch());
     }
 
@@ -419,7 +418,7 @@ public class ChagrinSentryEntity extends Raider implements ICanBeAnimated, Engin
         @Override
         public void start() {
             ChagrinSentryEntity.this.isShooting = true;
-            ChagrinSentryEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_LOAD.get(), 2.0F, 1.0F);
+            ChagrinSentryEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_LOAD, 2.0F, 1.0F);
         }
 
         @Override

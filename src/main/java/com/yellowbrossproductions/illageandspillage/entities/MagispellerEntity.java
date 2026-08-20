@@ -70,7 +70,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
-import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -1031,7 +1030,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1063,7 +1062,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1089,7 +1088,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1121,7 +1120,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1164,7 +1163,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1193,7 +1192,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1222,7 +1221,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1248,7 +1247,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1288,7 +1287,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1335,7 +1334,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1375,7 +1374,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1404,7 +1403,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1433,7 +1432,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1462,7 +1461,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1491,7 +1490,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1852,7 +1851,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }

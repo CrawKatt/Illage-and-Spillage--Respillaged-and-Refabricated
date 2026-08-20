@@ -28,7 +28,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
@@ -113,7 +112,7 @@ public class EntityUtil {
         } while (blockpos.getY() >= Mth.floor(p_190876_5_) - 1);
 
         if (flag) {
-            ImpEntity imp = ModEntityTypes.Imp.get().create(level);
+            ImpEntity imp = ModEntityTypes.Imp.create(level);
 
             assert imp != null;
 
@@ -161,7 +160,7 @@ public class EntityUtil {
                         packet.queueParticle(particleType, false, new Vec3(spawner.getX(), spawner.getY() + y, spawner.getZ()), new Vec3(vx, vy, vz));
                     }
 
-                    PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer), packet);
+                    PacketHandler.sendToPlayer(serverPlayer, packet);
                 }
             }
         }
@@ -192,7 +191,7 @@ public class EntityUtil {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }

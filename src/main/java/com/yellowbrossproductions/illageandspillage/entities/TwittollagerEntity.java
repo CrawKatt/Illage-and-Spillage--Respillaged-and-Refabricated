@@ -31,7 +31,6 @@ import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.EnumSet;
 import java.util.Iterator;
@@ -378,7 +377,7 @@ public class TwittollagerEntity extends AbstractIllager {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }

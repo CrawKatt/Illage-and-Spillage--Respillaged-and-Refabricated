@@ -30,10 +30,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.network.PacketDistributor;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.Iterator;
 
 public class KaboomerEntity extends Monster implements IllagerAttack {
@@ -73,9 +71,11 @@ public class KaboomerEntity extends Monster implements IllagerAttack {
         this.entityData.define(ATTACKSTAGE, 0);
     }
 
+    /*
     public boolean canBeRiddenUnderFluidType(FluidType type, Entity rider) {
         return true;
     }
+    */
 
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_, DamageSource p_147189_) {
         return false;
@@ -95,12 +95,12 @@ public class KaboomerEntity extends Monster implements IllagerAttack {
             }
 
             if (this.spawnTicks == 70) {
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_KABOOMER_HISS.get(), 2.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_KABOOMER_HISS, 2.0F, 1.0F);
                 this.setAttackStage(3);
             }
 
             if (this.spawnTicks > 100) {
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_KABOOMER_EXPLODE.get(), 3.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_KABOOMER_EXPLODE, 3.0F, 1.0F);
                 CameraShakeEntity.cameraShake(this.level(), this.position(), 50.0F, 0.6F, 0, 20);
                 this.makeExplodeParticles();
                 this.explode();
@@ -188,7 +188,7 @@ public class KaboomerEntity extends Monster implements IllagerAttack {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -217,7 +217,7 @@ public class KaboomerEntity extends Monster implements IllagerAttack {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }

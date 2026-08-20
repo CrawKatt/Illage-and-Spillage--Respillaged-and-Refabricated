@@ -33,7 +33,6 @@ import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
@@ -113,7 +112,7 @@ public class PreserverEntity extends AbstractIllager {
                         packet.queueParticle(ParticleTypes.EXPLOSION, false, new Vec3(this.entityToParticle.getRandomX(1.0), this.entityToParticle.getRandomY() + 1.0, this.entityToParticle.getRandomZ(1.0)), new Vec3(d0, d1, d2));
                     }
 
-                    PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer), packet);
+                    PacketHandler.sendToPlayer(serverPlayer, packet);
                 }
             }
         }

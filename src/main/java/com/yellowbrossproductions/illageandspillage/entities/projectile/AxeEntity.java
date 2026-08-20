@@ -20,7 +20,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class AxeEntity extends AbstractHurtingProjectile {
     }
 
     public AxeEntity(Level p_181151_, LivingEntity p_181152_, double p_181153_, double p_181154_, double p_181155_) {
-        super(ModEntityTypes.Axe.get(), p_181152_, p_181153_, p_181154_, p_181155_, p_181151_);
+        super(ModEntityTypes.Axe, p_181152_, p_181153_, p_181154_, p_181155_, p_181151_);
         this.setOwner(p_181152_);
     }
 
@@ -98,7 +97,7 @@ public class AxeEntity extends AbstractHurtingProjectile {
                         packet.queueParticle(ParticleTypes.CRIT, false, new Vec3(this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D)), new Vec3(d0, d1, d2));
                     }
 
-                    PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer), packet);
+                    PacketHandler.sendToPlayer(serverPlayer, packet);
                 }
             }
         }
@@ -129,7 +128,7 @@ public class AxeEntity extends AbstractHurtingProjectile {
                         packet.queueParticle(ParticleTypes.EXPLOSION, false, new Vec3(this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D)), new Vec3(d0, d1, d2));
                     }
 
-                    PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer), packet);
+                    PacketHandler.sendToPlayer(serverPlayer, packet);
                 }
             }
         }

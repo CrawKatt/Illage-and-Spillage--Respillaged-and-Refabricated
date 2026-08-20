@@ -33,7 +33,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
@@ -83,17 +82,17 @@ public class EyesoreEntity extends Monster implements ICanBeAnimated, IllagerAtt
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_EYESORE_AMBIENT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_EYESORE_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_33034_) {
-        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_EYESORE_HURT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_EYESORE_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_EYESORE_DEATH.get();
+        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_EYESORE_DEATH;
     }
 
     @Override
@@ -120,7 +119,7 @@ public class EyesoreEntity extends Monster implements ICanBeAnimated, IllagerAtt
     @Override
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_, DamageSource p_147189_) {
         if (this.isFlying()) {
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_EYESORE_LAND.get(), 2.0F, this.getVoicePitch());
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_EYESORE_LAND, 2.0F, this.getVoicePitch());
             this.setFlying(false);
             return false;
         }
@@ -196,7 +195,7 @@ public class EyesoreEntity extends Monster implements ICanBeAnimated, IllagerAtt
                 packet.queueParticle(ParticleTypes.SPLASH, false, new Vec3(this.getRandomX(0.5), this.getRandomY(), this.getRandomZ(0.5)), new Vec3(d0, d1, d2));
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -221,11 +220,11 @@ public class EyesoreEntity extends Monster implements ICanBeAnimated, IllagerAtt
                     double d0 = (-0.5 + this.random.nextGaussian()) / 4.0;
                     double d1 = (1.0 + this.random.nextGaussian()) / 4.0;
                     double d2 = (-0.5 + this.random.nextGaussian()) / 4.0;
-                    packet.queueParticle(ParticleRegisterer.BLOOD_PARTICLES.get(), false, new Vec3(this.getX(), this.getY(), this.getZ()), new Vec3(d0, d1, d2));
+                    packet.queueParticle(ParticleRegisterer.BLOOD_PARTICLES, false, new Vec3(this.getX(), this.getY(), this.getZ()), new Vec3(d0, d1, d2));
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }

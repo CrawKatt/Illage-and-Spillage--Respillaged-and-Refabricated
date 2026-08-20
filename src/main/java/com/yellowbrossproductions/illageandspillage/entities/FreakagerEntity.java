@@ -52,7 +52,6 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -310,7 +309,7 @@ public class FreakagerEntity extends AbstractIllager implements ICanBeAnimated {
                 this.setAnimationState(9);
                 this.setLeftHanded(false);
                 setShowArms(true);
-                if (Config.CommonConfig.mobs_watch_intros) {
+                if (Config.CommonConfig.mobs_watch_intros.get()) {
                     List<Mob> list1 = this.level().getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(50.0));
                     for (Mob mob : list1) {
                         mob.goalSelector.addGoal(0, new WatchBossIntroGoal(mob, this));
@@ -1174,7 +1173,7 @@ public class FreakagerEntity extends AbstractIllager implements ICanBeAnimated {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1203,7 +1202,7 @@ public class FreakagerEntity extends AbstractIllager implements ICanBeAnimated {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1236,7 +1235,7 @@ public class FreakagerEntity extends AbstractIllager implements ICanBeAnimated {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }

@@ -19,7 +19,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.PacketDistributor;
 
 public class VillagerSoulEntity extends PathfinderMob {
     private static final EntityDataAccessor<Boolean> CHARGING;
@@ -93,7 +92,7 @@ public class VillagerSoulEntity extends PathfinderMob {
                 this.getTarget().addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
 
                 if (this.getTarget() instanceof ServerPlayer player) {
-                    PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new JumpscareSyncPacket());
+                    PacketHandler.sendToPlayer(player, new JumpscareSyncPacket());
                 }
 
                 this.discard();

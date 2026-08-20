@@ -49,9 +49,8 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.*;
 
 public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimated {
@@ -173,7 +172,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
     }
 
     public SoundEvent getBossMusic() {
-        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_MUSIC.get();
+        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_MUSIC;
     }
 
     protected boolean canPlayMusic() {
@@ -257,22 +256,22 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
                     this.setShowVillager(true);
                 }
 
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_CYMBAL.get(), 1.0F, 1.0F);
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_VILLAGERPANIC.get(), 1.0F, 1.0F);
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_SHIVER.get(), 1.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_CYMBAL, 1.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_VILLAGERPANIC, 1.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_SHIVER, 1.0F, 1.0F);
             }
 
             if (this.introTicks > 32 && (this.introTicks - 32) % 5 == 0 && this.introTicks - 32 < 32) {
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_VILLAGERPANIC.get(), 1.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_VILLAGERPANIC, 1.0F, 1.0F);
             }
 
             if (this.introTicks - 20 == 34) {
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_THROW.get(), 1.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_THROW, 1.0F, 1.0F);
             }
 
             if (this.introTicks - 20 == 36) {
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_VILLAGERPANIC.get(), 1.0F, 1.2F);
-                this.setItemSlot(EquipmentSlot.OFFHAND, PotionUtils.setPotion(new ItemStack(Items.POTION), PotionRegisterer.MUTATION.get()));
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_VILLAGERPANIC, 1.0F, 1.2F);
+                this.setItemSlot(EquipmentSlot.OFFHAND, PotionUtils.setPotion(new ItemStack(Items.POTION), PotionRegisterer.MUTATION));
             }
 
             if (this.introTicks - 20 == 44) {
@@ -280,8 +279,8 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
                     this.setVillagerFace(1);
                 }
 
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_FORCEPOTION.get(), 1.0F, 1.0F);
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_VILLAGERPANIC.get(), 1.0F, 1.3F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_FORCEPOTION, 1.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_VILLAGERPANIC, 1.0F, 1.3F);
                 this.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
             }
 
@@ -310,7 +309,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
                     this.setVillagerFace(0);
                 }
 
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_VILLAGERHISS.get(), 1.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_VILLAGERHISS, 1.0F, 1.0F);
             }
 
             if (this.introTicks - 20 == 116 && !this.level().isClientSide) {
@@ -318,7 +317,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
             }
 
             if (this.introTicks - 20 == 132) {
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_RAGNO_SPAWN.get(), 1.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_RAGNO_SPAWN, 1.0F, 1.0F);
             }
 
             if (this.introTicks - 20 == 158) {
@@ -338,7 +337,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
                     this.level().explode(this, this.getX(), this.getY(), this.getZ(), 4.0F, Level.ExplosionInteraction.NONE);
                 }
 
-                ragno = ModEntityTypes.OldRagno.get().create(this.level());
+                ragno = ModEntityTypes.OldRagno.create(this.level());
 
                 assert ragno != null;
 
@@ -370,7 +369,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
             }
 
             if (this.introTicks - 158 == 50) {
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_LAUGH.get(), 2.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_LAUGH, 2.0F, 1.0F);
                 this.setAnimationState(2);
             }
 
@@ -433,11 +432,11 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
         if (this.isAlive()) {
             if (this.attackType == BOMBS_ATTACK && this.attackTicks == 20) {
                 double throwSpeed = 0.7;
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_CYMBAL.get(), 1.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_CYMBAL, 1.0F, 1.0F);
 
                 for (int i = 0; i < 4; ++i) {
                     if (this.getHealth() < this.getMaxHealth() / 2.0F) {
-                        SkullBombEntity s1 = ModEntityTypes.SkullBomb.get().create(this.level());
+                        SkullBombEntity s1 = ModEntityTypes.SkullBomb.create(this.level());
 
                         assert s1 != null;
 
@@ -455,7 +454,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
 
                         this.level().addFreshEntity(s1);
                     } else {
-                        PumpkinBombEntity s1 = ModEntityTypes.PumpkinBomb.get().create(this.level());
+                        PumpkinBombEntity s1 = ModEntityTypes.PumpkinBomb.create(this.level());
 
                         assert s1 != null;
 
@@ -499,13 +498,13 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
                 }
 
                 if (this.attackTicks % 28 == 2) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_THROW.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_THROW, 2.0F, 1.0F);
                 }
 
                 if (entity != null && this.attackTicks % 28 == 6) {
                     this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                     if (!this.level().isClientSide) {
-                        projectile = ModEntityTypes.OldAxe.get().create(this.level());
+                        projectile = ModEntityTypes.OldAxe.create(this.level());
 
                         assert projectile != null;
 
@@ -532,13 +531,13 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
                 }
 
                 if (this.attackTicks % 28 == 16) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_THROW.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_THROW, 2.0F, 1.0F);
                 }
 
                 if (entity != null && this.attackTicks % 28 == 22) {
                     this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                     if (!this.level().isClientSide) {
-                        projectile = ModEntityTypes.OldAxe.get().create(this.level());
+                        projectile = ModEntityTypes.OldAxe.create(this.level());
 
                         assert projectile != null;
 
@@ -573,13 +572,13 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
                 }
 
                 if (this.attackTicks % 12 == 1) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_THROW.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_THROW, 2.0F, 1.0F);
                 }
 
                 if (entity != null && this.attackTicks % 12 == 3) {
                     this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                     if (!this.level().isClientSide) {
-                        projectile = ModEntityTypes.OldAxe.get().create(this.level());
+                        projectile = ModEntityTypes.OldAxe.create(this.level());
 
                         assert projectile != null;
 
@@ -606,13 +605,13 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
                 }
 
                 if (this.attackTicks % 12 == 7) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_THROW.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_THROW, 2.0F, 1.0F);
                 }
 
                 if (entity != null && this.attackTicks % 12 == 10) {
                     this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                     if (!this.level().isClientSide) {
-                        projectile = ModEntityTypes.OldAxe.get().create(this.level());
+                        projectile = ModEntityTypes.OldAxe.create(this.level());
 
                         assert projectile != null;
 
@@ -641,7 +640,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
 
             if (this.attackType == POTIONS_ATTACK) {
                 if (this.attackTicks == 10) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_SPIN.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_SPIN, 2.0F, 1.0F);
                     this.potionThrowDistance = 0.0;
                 }
 
@@ -654,13 +653,13 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
 
                     for (int i = 0; i < 2; ++i) {
                         if (!this.level().isClientSide) {
-                            DarkPotionEntity potionentity = ModEntityTypes.DarkPotion.get().create(this.level());
+                            DarkPotionEntity potionentity = ModEntityTypes.DarkPotion.create(this.level());
 
                             assert potionentity != null;
 
                             potionentity.setPos(this.getX(), this.getY() + 2.0, this.getZ());
                             potionentity.setOwner(this);
-                            potionentity.setItem(PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), PotionRegisterer.MUTATION.get()));
+                            potionentity.setItem(PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), PotionRegisterer.MUTATION));
                             potionentity.setXRot(-20.0F);
                             potionentity.setDeltaMovement((-2.0 + this.random.nextDouble() + this.random.nextDouble() + this.random.nextDouble() + this.random.nextDouble()) * (this.potionThrowDistance / 4.0), 1.0, (-2.0 + this.random.nextDouble() + this.random.nextDouble() + this.random.nextDouble() + this.random.nextDouble()) * (this.potionThrowDistance / 4.0));
                             this.level().addFreshEntity(potionentity);
@@ -673,7 +672,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
                 entity = this.getTarget();
                 if (entity != null) {
                     if (this.attackTicks == 14) {
-                        this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_THROW.get(), 2.0F, 1.0F);
+                        this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_THROW, 2.0F, 1.0F);
                     }
 
                     if (this.attackTicks == 16) {
@@ -682,7 +681,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
                             this.setShowScythe(false);
                         }
 
-                        OldScytheEntity scythe = ModEntityTypes.OldScythe.get().create(this.level());
+                        OldScytheEntity scythe = ModEntityTypes.OldScythe.create(this.level());
 
                         assert scythe != null;
 
@@ -705,11 +704,11 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
             }
 
             if (this.attackType == TRICKORTREAT_ATTACK && this.attackTicks == 21) {
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_CYMBAL.get(), 2.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_CYMBAL, 2.0F, 1.0F);
                 int amount = 7;
 
                 for (int i = 0; i < amount; ++i) {
-                    TrickOrTreatEntity treat = ModEntityTypes.TrickOrTreat.get().create(this.level());
+                    TrickOrTreatEntity treat = ModEntityTypes.TrickOrTreat.create(this.level());
 
                     assert treat != null;
 
@@ -752,7 +751,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
 
             assert bag != null;
 
-            bag.setItem(ItemRegisterer.BAG_OF_HORRORS.get().getDefaultInstance());
+            bag.setItem(ItemRegisterer.BAG_OF_HORRORS.getDefaultInstance());
             bag.setPos(this.getX(), this.getY(), this.getZ());
             bag.setDeltaMovement(0.0, 0.6, 0.0);
             bag.setNeverPickUp();
@@ -861,7 +860,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -890,7 +889,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -922,19 +921,19 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
     }
 
     public SoundEvent getCelebrateSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_LAUGH.get();
+        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_LAUGH;
     }
 
     protected SoundEvent getAmbientSound() {
-        return this.introTicks > 1 ? null : IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_AMBIENT.get();
+        return this.introTicks > 1 ? null : IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_HURT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_DEATH.get();
+        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_DEATH;
     }
 
     public boolean canBeLeader() {
@@ -972,7 +971,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
     protected void dropAllDeathLoot(DamageSource source) {
         if (this.getVehicle() == null) {
             if (this.shouldDropLoot() && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT) && source.getDirectEntity() instanceof ScytheEntity) {
-                this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(ItemRegisterer.FREAKAGER_DISC.get())));
+                this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(ItemRegisterer.FREAKAGER_DISC)));
             }
             super.dropAllDeathLoot(source);
         }
@@ -1126,7 +1125,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
         }
 
         public void start() {
-            OldFreakagerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_TRICKORTREAT.get(), 2.0F, 1.0F);
+            OldFreakagerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_TRICKORTREAT, 2.0F, 1.0F);
             OldFreakagerEntity.this.setAnimationState(8);
             OldFreakagerEntity.this.attackType = TRICKORTREAT_ATTACK;
             if (!OldFreakagerEntity.this.level().isClientSide) {
@@ -1216,7 +1215,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
         }
 
         public void start() {
-            OldFreakagerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_REVEAL.get(), 2.0F, 1.0F);
+            OldFreakagerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_REVEAL, 2.0F, 1.0F);
             OldFreakagerEntity.this.setAnimationState(6);
             OldFreakagerEntity.this.attackType = POTIONS_ATTACK;
             if (!OldFreakagerEntity.this.level().isClientSide) {
@@ -1349,7 +1348,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
         }
 
         public void start() {
-            OldFreakagerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_PUMPKINBOMBS.get(), 2.0F, 1.0F);
+            OldFreakagerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_PUMPKINBOMBS, 2.0F, 1.0F);
             OldFreakagerEntity.this.setAnimationState(3);
             OldFreakagerEntity.this.attackType = BOMBS_ATTACK;
             if (!OldFreakagerEntity.this.level().isClientSide) {
@@ -1394,7 +1393,7 @@ public class OldFreakagerEntity extends AbstractIllager implements ICanBeAnimate
         }
 
         public void start() {
-            OldFreakagerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_REVEAL.get(), 1.0F, 1.0F);
+            OldFreakagerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_REVEAL, 1.0F, 1.0F);
             if (!OldFreakagerEntity.this.level().isClientSide) {
                 OldFreakagerEntity.this.setShowArms(true);
             }

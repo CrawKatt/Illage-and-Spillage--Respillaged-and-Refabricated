@@ -7,12 +7,9 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Random;
 
-@OnlyIn(Dist.CLIENT)
 public class JumpscareOverlay {
     private static final ResourceLocation TEXTURE = new ResourceLocation("illageandspillage", "textures/entity/freakager/jumpscare1.png");
     private static final ResourceLocation TEXTURE_OUTLINE = new ResourceLocation("illageandspillage", "textures/entity/freakager/jumpscare2.png");

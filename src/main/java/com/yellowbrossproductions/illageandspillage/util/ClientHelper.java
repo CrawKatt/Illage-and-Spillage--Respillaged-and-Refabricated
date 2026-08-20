@@ -2,8 +2,8 @@ package com.yellowbrossproductions.illageandspillage.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 
 public class ClientHelper {
     @Nullable

@@ -6,8 +6,6 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class BloodParticles extends TextureSheetParticle {
     BloodParticles(ClientLevel p_106051_, double p_106052_, double p_106053_, double p_106054_, SpriteSet spriteSet, double xd, double yd, double zd) {
@@ -61,7 +59,6 @@ public class BloodParticles extends TextureSheetParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprites;
 

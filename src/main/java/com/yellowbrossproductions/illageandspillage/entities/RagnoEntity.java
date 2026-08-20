@@ -60,7 +60,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -142,9 +141,9 @@ public class RagnoEntity extends Raider implements ICanBeAnimated {
     public RagnoEntity(EntityType<? extends Raider> p_i48556_1_, Level p_i48556_2_) {
         super(p_i48556_1_, p_i48556_2_);
         this.xpReward = 40;
-        bossEvent = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(Config.CommonConfig.bosses_darken_sky);
+        bossEvent = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(Config.CommonConfig.bosses_darken_sky.get());
         bossEvent.setVisible(false);
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(Config.CommonConfig.ragno_health);
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(Config.CommonConfig.ragno_health.get());
         this.heal(Float.MAX_VALUE);
     }
 
@@ -1650,10 +1649,12 @@ public class RagnoEntity extends Raider implements ICanBeAnimated {
         return super.getDismountLocationForPassenger(p_29487_);
     }
 
+    /*
     @Override
     public boolean shouldRiderSit() {
         return !this.isCrazy();
     }
+    */
 
     private Vec3 getBurrowPosition(double p_32673_, double p_32674_, double p_32675_, double p_32676_) {
         BlockPos blockpos = BlockPos.containing(p_32673_, p_32676_, p_32674_);
@@ -1821,7 +1822,7 @@ public class RagnoEntity extends Raider implements ICanBeAnimated {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1850,7 +1851,7 @@ public class RagnoEntity extends Raider implements ICanBeAnimated {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1874,7 +1875,7 @@ public class RagnoEntity extends Raider implements ICanBeAnimated {
                 packet.queueParticle(ParticleRegisterer.MUTATION_DRIP_PARTICLES, false, new Vec3(this.getRandomX(0.6), this.getRandomY() + (this.isAlive() ? 0.75 : 0), this.getRandomZ(0.6)), new Vec3(0, 0, 0));
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1948,7 +1949,7 @@ public class RagnoEntity extends Raider implements ICanBeAnimated {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -1981,7 +1982,7 @@ public class RagnoEntity extends Raider implements ICanBeAnimated {
                     }
                 } else {
                     try {
-                        if (attacker.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && attacker.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && attacker.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET) == this) {
+                        if (attacker.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && attacker.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && attacker.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get() == this) {
                             attacker.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, owner.getUUID(), 600L);
                             attacker.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_TARGET, owner, 600L);
                         }
@@ -2077,7 +2078,7 @@ public class RagnoEntity extends Raider implements ICanBeAnimated {
     }
 
     public boolean isPersistenceRequired() {
-        return !Config.CommonConfig.ULTIMATE_NIGHTMARE;
+        return !Config.CommonConfig.ULTIMATE_NIGHTMARE.get();
     }
 
     public double getPassengersRidingOffset() {

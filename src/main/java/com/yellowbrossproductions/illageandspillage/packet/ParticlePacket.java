@@ -7,11 +7,9 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class ParticlePacket {
     private final List<QueuedParticle> queuedParticles = new ArrayList<>();
@@ -68,17 +66,14 @@ public class ParticlePacket {
     }
 
     public static class Handler {
-        public static void onMessage(ParticlePacket message, Supplier<NetworkEvent.Context> ctx) {
-            (ctx.get()).enqueueWork(() -> {
-                ClientLevel level = Minecraft.getInstance().level;
-                if (level != null) {
-                    for (QueuedParticle queuedParticle : message.queuedParticles) {
-                        level.addParticle(queuedParticle.particleOptions, queuedParticle.b, queuedParticle.x, queuedParticle.y, queuedParticle.z, queuedParticle.x2, queuedParticle.y2, queuedParticle.z2);
-                    }
-
+        public static void onMessage(Minecraft client, ParticlePacket message) {
+            ClientLevel level = client.level;
+            if (level != null) {
+                for (QueuedParticle queuedParticle : message.queuedParticles) {
+                    level.addParticle(queuedParticle.particleOptions, queuedParticle.b, queuedParticle.x, queuedParticle.y, queuedParticle.z, queuedParticle.x2, queuedParticle.y2, queuedParticle.z2);
                 }
-            });
-            (ctx.get()).setPacketHandled(true);
+
+            }
         }
     }
 }

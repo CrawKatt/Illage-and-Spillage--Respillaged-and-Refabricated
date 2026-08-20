@@ -22,7 +22,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.Iterator;
 import java.util.List;
@@ -83,7 +82,7 @@ public class ScytheEntity extends PathfinderMob implements IllagerAttack {
         this.makeParticles();
         this.setDeltaMovement(this.accelerationX, this.accelerationY, this.accelerationZ);
         if (this.tickCount % 4 == 0) {
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_SCYTHE_SPIN.get(), 1.0F, 1.0F);
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_SCYTHE_SPIN, 1.0F, 1.0F);
         }
 
         if (this.tickCount > 40 && !this.halfHealth) {
@@ -191,7 +190,7 @@ public class ScytheEntity extends PathfinderMob implements IllagerAttack {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }

@@ -35,7 +35,6 @@ import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -144,7 +143,7 @@ public class CrocofangEntity extends Raider implements ICanBeAnimated {
     }
 
     public SoundEvent getCelebrateSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_CROCOFANG_AMBIENT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_CROCOFANG_AMBIENT;
     }
 
     public float getStepHeight() {
@@ -152,15 +151,15 @@ public class CrocofangEntity extends Raider implements ICanBeAnimated {
     }
 
     protected @Nullable SoundEvent getAmbientSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_CROCOFANG_AMBIENT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_CROCOFANG_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource p_33034_) {
-        return IllageAndSpillageSoundEvents.ENTITY_CROCOFANG_HURT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_CROCOFANG_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_CROCOFANG_DEATH.get();
+        return IllageAndSpillageSoundEvents.ENTITY_CROCOFANG_DEATH;
     }
 
     public void tick() {
@@ -222,7 +221,7 @@ public class CrocofangEntity extends Raider implements ICanBeAnimated {
                         }
                         this.setAnimationState(3);
                         this.setCharge(motionX, motionZ);
-                        EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_CROCOFANG_CHARGE.get(), 3.0F, 1.0F, false);
+                        EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_CROCOFANG_CHARGE, 3.0F, 1.0F, false);
                     }
 
                     if (this.chargeTime > 30 && this.chargeTime <= 64) {
@@ -335,7 +334,7 @@ public class CrocofangEntity extends Raider implements ICanBeAnimated {
         if (this.biteTime < 1 && this.chargeTime < 1 && this.stunnedTime < 1) {
             this.attackAnimationState.stop();
             this.setAnimationState(0);
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_CROCOFANG_BITE.get(), 1.0F, 1.0F);
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_CROCOFANG_BITE, 1.0F, 1.0F);
             this.biteTime = 20;
             this.setAnimationState(1);
         }
@@ -433,7 +432,7 @@ public class CrocofangEntity extends Raider implements ICanBeAnimated {
         public void start() {
             CrocofangEntity.this.attackAnimationState.stop();
             CrocofangEntity.this.setAnimationState(2);
-            CrocofangEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_CROCOFANG_PREPARE_CHARGE.get(), 3.0F, 1.0F);
+            CrocofangEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_CROCOFANG_PREPARE_CHARGE, 3.0F, 1.0F);
             CrocofangEntity.this.chargeTime = 1;
         }
 

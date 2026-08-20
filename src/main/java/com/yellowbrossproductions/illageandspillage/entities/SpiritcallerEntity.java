@@ -120,7 +120,7 @@ public class SpiritcallerEntity extends AbstractIllager {
         this.xpReward = 50;
         bossEvent = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         bossEvent.setVisible(false);
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(Config.CommonConfig.spiritcaller_health);
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(Config.CommonConfig.spiritcaller_health.get());
         this.heal(Float.MAX_VALUE);
     }
 
@@ -290,7 +290,7 @@ public class SpiritcallerEntity extends AbstractIllager {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }

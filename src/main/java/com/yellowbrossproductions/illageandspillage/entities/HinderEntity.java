@@ -20,7 +20,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.Iterator;
 import java.util.List;
@@ -124,7 +123,7 @@ public class HinderEntity extends Raider implements ICanBeAnimated, EngineerMach
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_DISPENSER_DESTROY.get();
+        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_DISPENSER_DESTROY;
     }
 
     @Override
@@ -188,7 +187,7 @@ public class HinderEntity extends Raider implements ICanBeAnimated, EngineerMach
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -237,7 +236,7 @@ public class HinderEntity extends Raider implements ICanBeAnimated, EngineerMach
                 } else {
                     if (!this.isHealing()) {
                         this.setHealing(true);
-                        EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_ENGINEER_HINDER_HEAL.get(), 0.5F, 2.0F, true);
+                        EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_ENGINEER_HINDER_HEAL, 0.5F, 2.0F, true);
                     }
                     for (Raider entity : list) {
                         this.makeParticleTrail(this.getX(), this.getY() + 0.6, this.getZ(), entity.getBoundingBox().getCenter().x, entity.getBoundingBox().getCenter().y, entity.getBoundingBox().getCenter().z);

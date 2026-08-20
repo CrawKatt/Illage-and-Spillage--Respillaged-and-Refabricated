@@ -22,7 +22,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.Iterator;
 
@@ -34,7 +33,7 @@ public class BoneEntity extends AbstractHurtingProjectile {
     }
 
     public BoneEntity(Level p_181151_, LivingEntity p_181152_, double p_181153_, double p_181154_, double p_181155_) {
-        super(ModEntityTypes.Bone.get(), p_181152_, p_181153_, p_181154_, p_181155_, p_181151_);
+        super(ModEntityTypes.Bone, p_181152_, p_181153_, p_181154_, p_181155_, p_181151_);
         this.setOwner(p_181152_);
     }
 
@@ -57,7 +56,7 @@ public class BoneEntity extends AbstractHurtingProjectile {
 
     @Override
     protected ParticleOptions getTrailParticle() {
-        return new ItemParticleOption(ParticleTypes.ITEM, ItemRegisterer.GREENBONE.get().getDefaultInstance());
+        return new ItemParticleOption(ParticleTypes.ITEM, ItemRegisterer.GREENBONE.getDefaultInstance());
     }
 
     @Override
@@ -73,7 +72,7 @@ public class BoneEntity extends AbstractHurtingProjectile {
             Entity entity1 = this.getOwner();
             entity.invulnerableTime = 0;
             if (entity.hurt(this.damageSources().thrown(this, entity1), 6.0F) && entity instanceof LivingEntity && this.isGoopy) {
-                ((LivingEntity) entity).addEffect(new MobEffectInstance(EffectRegisterer.MUTATION.get(), 100, 1));
+                ((LivingEntity) entity).addEffect(new MobEffectInstance(EffectRegisterer.MUTATION, 100, 1));
             }
             if (entity1 instanceof LivingEntity) {
                 this.doEnchantDamageEffects((LivingEntity) entity1, entity);
@@ -109,7 +108,7 @@ public class BoneEntity extends AbstractHurtingProjectile {
                 packet.queueParticle(ParticleTypes.ENTITY_EFFECT, false, this.getRandomX(1.0), this.getY(), this.getRandomZ(1.0), 0.208, 0.102, 0.153);
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -124,12 +123,12 @@ public class BoneEntity extends AbstractHurtingProjectile {
                         double d0 = (-0.5 + this.random.nextGaussian());
                         double d1 = (-0.5 + this.random.nextGaussian());
                         double d2 = (-0.5 + this.random.nextGaussian());
-                        packet.queueParticle(new ItemParticleOption(ParticleTypes.ITEM, ItemRegisterer.GREENBONE.get().getDefaultInstance()), false, new Vec3(this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D)), new Vec3(d0, d1, d2));
+                        packet.queueParticle(new ItemParticleOption(ParticleTypes.ITEM, ItemRegisterer.GREENBONE.getDefaultInstance()), false, new Vec3(this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D)), new Vec3(d0, d1, d2));
                     }
 
                     packet.queueParticle(ParticleTypes.EXPLOSION, false, new Vec3(this.getBoundingBox().getCenter().x, this.getBoundingBox().getCenter().y, this.getBoundingBox().getCenter().z), new Vec3(0, 0, 0));
 
-                    PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer), packet);
+                    PacketHandler.sendToPlayer(serverPlayer, packet);
                 }
             }
         }

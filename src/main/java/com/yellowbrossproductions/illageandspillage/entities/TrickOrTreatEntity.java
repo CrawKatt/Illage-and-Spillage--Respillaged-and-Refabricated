@@ -27,7 +27,6 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.Iterator;
 import java.util.List;
@@ -104,7 +103,7 @@ public class TrickOrTreatEntity extends PathfinderMob implements IllagerAttack {
     }
 
     public boolean canBeAffected(MobEffectInstance p_21197_) {
-        return (this.isOld() || !this.getGoopy() || p_21197_.getEffect() != EffectRegisterer.MUTATION.get()) && super.canBeAffected(p_21197_);
+        return (this.isOld() || !this.getGoopy() || p_21197_.getEffect() != EffectRegisterer.MUTATION) && super.canBeAffected(p_21197_);
     }
 
     public void tick() {
@@ -128,7 +127,7 @@ public class TrickOrTreatEntity extends PathfinderMob implements IllagerAttack {
                         this.setBounce();
                     }
 
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_TRICKORTREAT_BOUNCE.get(), 2.0F, 1.9F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_TRICKORTREAT_BOUNCE, 2.0F, 1.9F);
                     this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.6, 0.0));
                     this.makeTreatParticles();
                 }
@@ -199,7 +198,7 @@ public class TrickOrTreatEntity extends PathfinderMob implements IllagerAttack {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -228,7 +227,7 @@ public class TrickOrTreatEntity extends PathfinderMob implements IllagerAttack {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -289,7 +288,7 @@ public class TrickOrTreatEntity extends PathfinderMob implements IllagerAttack {
     public void die(DamageSource p_21014_) {
         super.die(p_21014_);
         this.deathTime = 19;
-        this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_TRICKORTREAT_DESTROY.get(), 1.5F, 1.0F);
+        this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_TRICKORTREAT_DESTROY, 1.5F, 1.0F);
         this.makeTreatDestroyedParticles();
         this.resetTargeters();
     }
@@ -302,12 +301,12 @@ public class TrickOrTreatEntity extends PathfinderMob implements IllagerAttack {
     }
 
     private ParticleOptions getParticle() {
-        ItemStack a = ItemRegisterer.TREAT1.get().getDefaultInstance();
-        ItemStack b = ItemRegisterer.TREAT2.get().getDefaultInstance();
-        ItemStack c = ItemRegisterer.TREAT3.get().getDefaultInstance();
-        ItemStack d = ItemRegisterer.TREAT4.get().getDefaultInstance();
-        ItemStack e = ItemRegisterer.TREAT5.get().getDefaultInstance();
-        ItemStack f = ItemRegisterer.TREAT6.get().getDefaultInstance();
+        ItemStack a = ItemRegisterer.TREAT1.getDefaultInstance();
+        ItemStack b = ItemRegisterer.TREAT2.getDefaultInstance();
+        ItemStack c = ItemRegisterer.TREAT3.getDefaultInstance();
+        ItemStack d = ItemRegisterer.TREAT4.getDefaultInstance();
+        ItemStack e = ItemRegisterer.TREAT5.getDefaultInstance();
+        ItemStack f = ItemRegisterer.TREAT6.getDefaultInstance();
 
         return switch (this.getTreat()) {
             case 2 -> new ItemParticleOption(ParticleTypes.ITEM, b);
@@ -355,7 +354,7 @@ public class TrickOrTreatEntity extends PathfinderMob implements IllagerAttack {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }

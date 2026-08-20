@@ -30,7 +30,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.Iterator;
 
@@ -124,7 +123,7 @@ public class SniperEntity extends Raider implements FactoryMinion, IllagerAttack
                 packet.queueParticle(ParticleTypes.EXPLOSION, false, this.getX(), this.getY(), this.getZ(), 1.0D, 0.0D, 0.0D);
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }

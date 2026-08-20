@@ -35,7 +35,6 @@ import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.EnumSet;
 import java.util.Iterator;
@@ -176,8 +175,7 @@ public class IgniterEntity extends AbstractIllager {
 
                 packet.queueParticle(ParticleTypes.SMOKE, false, new Vec3(this.getRandomX(0.15) + (-0.5 + this.random.nextDouble()), this.getY(this.random.nextDouble() / 2) + 1.0, this.getRandomZ(0.15) + (-0.5 + this.random.nextDouble())), new Vec3(0, 0, 0));
 
-                ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(serverPlayer, packet);
             }
         }
     }
