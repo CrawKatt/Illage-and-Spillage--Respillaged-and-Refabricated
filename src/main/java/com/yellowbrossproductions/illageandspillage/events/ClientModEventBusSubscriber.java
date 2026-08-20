@@ -57,10 +57,10 @@ public class ClientModEventBusSubscriber {
 
     @SubscribeEvent
     public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
-        Minecraft.getInstance().particleEngine.register(ParticleRegisterer.MUTATION_PARTICLES.get(), MutationParticles.Provider::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegisterer.MUTATION_PARTICLES2.get(), MutationParticles2.Provider::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegisterer.MUTATION_DRIP_PARTICLES.get(), MutationDripParticles.Provider::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegisterer.BLOOD_PARTICLES.get(), BloodParticles.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ParticleRegisterer.MUTATION_PARTICLES, MutationParticles.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ParticleRegisterer.MUTATION_PARTICLES2, MutationParticles2.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ParticleRegisterer.MUTATION_DRIP_PARTICLES, MutationDripParticles.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ParticleRegisterer.BLOOD_PARTICLES, BloodParticles.Provider::new);
     }
 
     @SubscribeEvent

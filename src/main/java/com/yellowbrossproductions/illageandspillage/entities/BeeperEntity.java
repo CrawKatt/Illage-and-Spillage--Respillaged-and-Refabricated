@@ -33,8 +33,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.util.Collection;
@@ -224,7 +222,7 @@ public class BeeperEntity extends Raider implements FactoryMinion, IllagerAttack
             int i = this.getCreeperState();
             if (i > 0 && this.timeSinceIgnited == 0) {
                 this.playSound(SoundEvents.TNT_PRIMED, 1.0F, 0.5F);
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_ENGINEER_BEEPER_BEEP.get(), 1.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_ENGINEER_BEEPER_BEEP, 1.0F, 1.0F);
             }
             this.timeSinceIgnited += i;
             if (this.timeSinceIgnited < 0) {
@@ -260,7 +258,6 @@ public class BeeperEntity extends Raider implements FactoryMinion, IllagerAttack
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public float getCreeperFlashIntensity(float partialTicks) {
         return Mth.lerp(partialTicks, (float) this.lastActiveTime, (float) this.timeSinceIgnited) / (float) (this.fuseTime - 2);
     }

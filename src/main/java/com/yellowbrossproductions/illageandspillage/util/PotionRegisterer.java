@@ -1,20 +1,20 @@
 package com.yellowbrossproductions.illageandspillage.util;
 
+import com.yellowbrossproductions.illageandspillage.IllageAndSpillage;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
 public class PotionRegisterer {
-    public static final DeferredRegister<Potion> POTIONS;
-    public static final RegistryObject<Potion> MUTATION;
-
-    public PotionRegisterer() {
-    }
+    public static final Potion MUTATION;
 
     static {
-        POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, "illageandspillage");
-        MUTATION = POTIONS.register("mutation", () -> new Potion(new MobEffectInstance(EffectRegisterer.MUTATION.get(), 600)));
+        MUTATION = Registry.register(BuiltInRegistries.POTION, new ResourceLocation(IllageAndSpillage.MOD_ID, "mutation"), new Potion(new MobEffectInstance(EffectRegisterer.MUTATION, 600)));
+    }
+
+    public static void init() {
+
     }
 }

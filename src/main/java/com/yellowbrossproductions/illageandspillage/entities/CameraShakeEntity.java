@@ -13,8 +13,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkHooks;
 
 public class CameraShakeEntity extends Entity {
@@ -28,7 +26,7 @@ public class CameraShakeEntity extends Entity {
     }
 
     public CameraShakeEntity(Level world, Vec3 position, float radius, float magnitude, int duration, int fadeDuration) {
-        super(ModEntityTypes.CameraShake.get(), world);
+        super(ModEntityTypes.CameraShake, world);
         this.setRadius(radius);
         this.setMagnitude(magnitude);
         this.setDuration(duration);
@@ -36,7 +34,6 @@ public class CameraShakeEntity extends Entity {
         this.setPos(position.x(), position.y(), position.z());
     }
 
-    @OnlyIn(Dist.CLIENT)
     public float getShakeAmount(Player player, float delta) {
         float ticksDelta = (float)this.tickCount + delta;
         float timeFrac = 1.0F - (ticksDelta - (float)this.getDuration()) / ((float)this.getFadeDuration() + 1.0F);

@@ -206,19 +206,19 @@ public class IgniterEntity extends AbstractIllager {
     }
 
     public SoundEvent getCelebrateSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_IGNITER_CELEBRATE.get();
+        return IllageAndSpillageSoundEvents.ENTITY_IGNITER_CELEBRATE;
     }
 
     protected SoundEvent getAmbientSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_IGNITER_AMBIENT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_IGNITER_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return IllageAndSpillageSoundEvents.ENTITY_IGNITER_HURT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_IGNITER_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_IGNITER_DEATH.get();
+        return IllageAndSpillageSoundEvents.ENTITY_IGNITER_DEATH;
     }
 
     public boolean isAttacking() {

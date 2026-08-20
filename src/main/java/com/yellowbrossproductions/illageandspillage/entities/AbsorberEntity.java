@@ -28,8 +28,8 @@ import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
@@ -132,7 +132,7 @@ public class AbsorberEntity extends AbstractIllager implements ICanBeAnimated {
     protected void tickDeath() {
         ++this.deathTime;
         if (this.deathTime == 30) {
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_ABSORBER_COLLAPSE.get(), 1.0F, 1.0F);
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_ABSORBER_COLLAPSE, 1.0F, 1.0F);
         }
 
         if (this.deathTime == 90 && !this.level().isClientSide()) {
@@ -163,19 +163,19 @@ public class AbsorberEntity extends AbstractIllager implements ICanBeAnimated {
     }
 
     public SoundEvent getCelebrateSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_ABSORBER_AMBIENT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_ABSORBER_AMBIENT;
     }
 
     protected SoundEvent getAmbientSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_ABSORBER_AMBIENT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_ABSORBER_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return IllageAndSpillageSoundEvents.ENTITY_ABSORBER_HURT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_ABSORBER_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_ABSORBER_DEATH.get();
+        return IllageAndSpillageSoundEvents.ENTITY_ABSORBER_DEATH;
     }
 
     public float getVoicePitch() {
@@ -186,7 +186,7 @@ public class AbsorberEntity extends AbstractIllager implements ICanBeAnimated {
         if (this.getAttackAnimationTick() < 1) {
             this.attackAnimationState.stop();
             this.setAnimationState(0);
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_ABSORBER_ATTACK.get(), 1.0F, 1.0F);
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_ABSORBER_ATTACK, 1.0F, 1.0F);
             if (!this.level().isClientSide) {
                 this.setAttackAnimationTick(30);
             }

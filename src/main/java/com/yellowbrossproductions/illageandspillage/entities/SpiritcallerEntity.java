@@ -52,8 +52,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.PacketDistributor;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
@@ -120,7 +120,7 @@ public class SpiritcallerEntity extends AbstractIllager {
         this.xpReward = 50;
         bossEvent = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         bossEvent.setVisible(false);
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(Config.CommonConfig.spiritcaller_health.get());
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(Config.CommonConfig.spiritcaller_health);
         this.heal(Float.MAX_VALUE);
     }
 
@@ -226,7 +226,7 @@ public class SpiritcallerEntity extends AbstractIllager {
         LocalDate localdate = LocalDate.now();
         int i = localdate.get(ChronoField.DAY_OF_MONTH);
         int j = localdate.get(ChronoField.MONTH_OF_YEAR);
-        return j == 4 && i == 1 ? IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_MUSIC_APRIL.get() : IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_MUSIC.get();
+        return j == 4 && i == 1 ? IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_MUSIC_APRIL : IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_MUSIC;
     }
 
     protected boolean canPlayMusic() {
@@ -370,7 +370,7 @@ public class SpiritcallerEntity extends AbstractIllager {
 
         this.updateMobList();
         List<Raider> list = this.level().getEntitiesOfClass(Raider.class, this.getBoundingBox().inflate(100.0), (predicate) -> predicate.hasActiveRaid() && !predicate.getType().is(ModTags.EntityTypes.ILLAGER_BOSSES));
-        if (Config.CommonConfig.spiritcaller_forcefield.get() && this.hasActiveRaid()) {
+        if (Config.CommonConfig.spiritcaller_forcefield && this.hasActiveRaid()) {
             if (!this.level().isClientSide) {
                 this.setIllagersNearby(!list.isEmpty());
             }
@@ -405,7 +405,7 @@ public class SpiritcallerEntity extends AbstractIllager {
                     }
                 }
 
-                EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_INTRO.get(), 2.0F, 1.0F, false);
+                EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_INTRO, 2.0F, 1.0F, false);
 
                 if (!this.level().isClientSide) {
                     this.setRitual(true);
@@ -502,7 +502,7 @@ public class SpiritcallerEntity extends AbstractIllager {
                 if (this.attackTicks > 10 && this.attackTicks <= 55) {
                     for (int i = 0; i < this.getSoulPower() + 1; ++i) {
                         if (!this.level().isClientSide) {
-                            IllagerSoulEntity soul = ModEntityTypes.IllagerSoul.get().create(this.level());
+                            IllagerSoulEntity soul = ModEntityTypes.IllagerSoul.create(this.level());
 
                             assert soul != null;
 
@@ -544,7 +544,7 @@ public class SpiritcallerEntity extends AbstractIllager {
                 if (this.attackTicks == 37) {
                     this.setArmsUpward(false);
                     this.setClap(true);
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_CLAP.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_CLAP, 2.0F, 1.0F);
                 }
 
                 if (this.attackTicks == 40) {
@@ -565,13 +565,13 @@ public class SpiritcallerEntity extends AbstractIllager {
                 if (this.attackTicks == 50) {
                     this.setArmsUpward(true);
                     this.setClap(false);
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_IMPRISE.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_IMPRISE, 2.0F, 1.0F);
                 }
 
                 if (this.attackTicks == 87) {
                     this.setArmsUpward(false);
                     this.setClap(true);
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_CLAP.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_CLAP, 2.0F, 1.0F);
                 }
 
                 if (this.attackTicks == 90) {
@@ -592,13 +592,13 @@ public class SpiritcallerEntity extends AbstractIllager {
                 if (this.attackTicks == 100) {
                     this.setArmsUpward(true);
                     this.setClap(false);
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_IMPRISE.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_IMPRISE, 2.0F, 1.0F);
                 }
 
                 if (this.attackTicks == 137) {
                     this.setArmsUpward(false);
                     this.setClap(true);
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_CLAP.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_CLAP, 2.0F, 1.0F);
                 }
 
                 if (this.attackTicks == 140) {
@@ -629,7 +629,7 @@ public class SpiritcallerEntity extends AbstractIllager {
 
                 if (this.attackTicks == 40) {
                     this.setShowSpiritHands(false);
-                    SpiritHandEntity hand1 = ModEntityTypes.SpiritHand.get().create(this.level());
+                    SpiritHandEntity hand1 = ModEntityTypes.SpiritHand.create(this.level());
 
                     assert hand1 != null;
 
@@ -644,7 +644,7 @@ public class SpiritcallerEntity extends AbstractIllager {
                     }
 
                     this.level().addFreshEntity(hand1);
-                    SpiritHandEntity hand2 = ModEntityTypes.SpiritHand.get().create(this.level());
+                    SpiritHandEntity hand2 = ModEntityTypes.SpiritHand.create(this.level());
 
                     assert hand2 != null;
 
@@ -675,9 +675,9 @@ public class SpiritcallerEntity extends AbstractIllager {
                 if (this.attackTicks == 100) {
                     this.setChargingLaser(false);
                     this.setShootingLaser(true);
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_LASER.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_LASER, 2.0F, 1.0F);
                     if (!this.level().isClientSide) {
-                        beam = new SoulBeamEntity(ModEntityTypes.SoulBeam.get(), this.level(), this, this.getX() + 0.800000011920929 * Math.sin((double) (-this.getYRot()) * Math.PI / 180.0), this.getY() + 1.0, this.getZ() + 0.800000011920929 * Math.cos((double) (-this.getYRot()) * Math.PI / 180.0), (float) ((double) (this.yHeadRot + 90.0F) * Math.PI / 180.0), (float) ((double) (-this.getXRot()) * Math.PI / 180.0), 40, this.getSoulPower());
+                        beam = new SoulBeamEntity(ModEntityTypes.SoulBeam, this.level(), this, this.getX() + 0.800000011920929 * Math.sin((double) (-this.getYRot()) * Math.PI / 180.0), this.getY() + 1.0, this.getZ() + 0.800000011920929 * Math.cos((double) (-this.getYRot()) * Math.PI / 180.0), (float) ((double) (this.yHeadRot + 90.0F) * Math.PI / 180.0), (float) ((double) (-this.getXRot()) * Math.PI / 180.0), 40, this.getSoulPower());
                         this.level().addFreshEntity(beam);
                     }
                 }
@@ -702,12 +702,12 @@ public class SpiritcallerEntity extends AbstractIllager {
             if (this.attackType == this.ANTICHEESE) {
                 if (attackTicks % 2 == 1 && attackTicks < 40) {
                     if (isFaking())
-                        this.playSound(IllageAndSpillageSoundEvents.ENTITY_MOBSPIRIT_HURT.get(), 0.5f, 1.0f);
+                        this.playSound(IllageAndSpillageSoundEvents.ENTITY_MOBSPIRIT_HURT, 0.5f, 1.0f);
                     setFaking(!this.isFaking());
                 }
 
                 if (attackTicks == 40 && this.getTarget() != null) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_ANTICHEESE.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_ANTICHEESE, 2.0F, 1.0F);
                     setArmsUpward(false);
                     makePoofParticles(this, this.level());
                     setPhasedOut(true);
@@ -739,8 +739,8 @@ public class SpiritcallerEntity extends AbstractIllager {
                     this.setPhasedOut(false);
                     setFaking(false);
                     this.setClap(true);
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_CLAP.get(), 2.0F, 1.0F);
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_ANTICHEESE.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_CLAP, 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_ANTICHEESE, 2.0F, 1.0F);
                     this.createRandomImps();
                 }
 
@@ -836,7 +836,7 @@ public class SpiritcallerEntity extends AbstractIllager {
             this.setNoGravity(true);
             this.nextWingsFrame();
             if (this.getWingsFrames() == 12 && this.isAlive() && !isPhasedOut()) {
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_WINGS.get(), 2.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_WINGS, 2.0F, 1.0F);
             }
 
             if (this.getWingsFrames() >= 25) {
@@ -986,7 +986,7 @@ public class SpiritcallerEntity extends AbstractIllager {
         } while (blockpos.getY() >= Mth.floor(p_190876_5_) - 1);
 
         if (flag) {
-            ImpEntity imp = ModEntityTypes.Imp.get().create(this.level());
+            ImpEntity imp = ModEntityTypes.Imp.create(this.level());
 
             assert imp != null;
 
@@ -1037,7 +1037,7 @@ public class SpiritcallerEntity extends AbstractIllager {
                 this.lastHurtByPlayerTime = 10000;
             }
 
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_DEATHANIMATION.get(), 3.0F, 1.0F);
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_DEATHANIMATION, 3.0F, 1.0F);
         } else {
             super.die(p_37847_);
         }
@@ -1094,7 +1094,7 @@ public class SpiritcallerEntity extends AbstractIllager {
                 lightning.setVisualOnly(true);
                 this.playSound(SoundEvents.LIGHTNING_BOLT_IMPACT, 3.0F, 1.0F);
                 this.playSound(SoundEvents.LIGHTNING_BOLT_THUNDER, 10000.0F, 1.0F);
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_KABOOMER_EXPLODE.get(), 6.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_KABOOMER_EXPLODE, 6.0F, 1.0F);
                 this.level().addFreshEntity(lightning);
                 CameraShakeEntity.cameraShake(this.level(), this.position(), 50.0F, 0.6F, 0, 20);
 
@@ -1111,8 +1111,8 @@ public class SpiritcallerEntity extends AbstractIllager {
 
                 }
 
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_DEATH.get(), 3.0F, 1.0F);
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_DESCENT.get(), 3.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_DEATH, 3.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_DESCENT, 3.0F, 1.0F);
                 super.die(lastDamageSource != null ? lastDamageSource : this.damageSources().generic());
                 if (!this.level().isClientSide) {
                     this.remove(RemovalReason.KILLED);
@@ -1126,7 +1126,7 @@ public class SpiritcallerEntity extends AbstractIllager {
 
     protected void dropAllDeathLoot(DamageSource source) {
         if (this.shouldDropLoot() && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT) && this.lastHurtByPlayerTime > 0 && (source.getDirectEntity() instanceof IllagerSoulEntity || source.getDirectEntity() instanceof SoulBeamEntity || source.getDirectEntity() instanceof ImpEntity)) {
-            this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(ItemRegisterer.SPIRITCALLER_DISC.get())));
+            this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(ItemRegisterer.SPIRITCALLER_DISC)));
         }
         super.dropAllDeathLoot(source);
     }
@@ -1347,7 +1347,7 @@ public class SpiritcallerEntity extends AbstractIllager {
     }
 
     public boolean isPersistenceRequired() {
-        return !Config.CommonConfig.ULTIMATE_NIGHTMARE.get();
+        return !Config.CommonConfig.ULTIMATE_NIGHTMARE;
     }
 
     @Nullable
@@ -1360,19 +1360,19 @@ public class SpiritcallerEntity extends AbstractIllager {
     }
 
     public SoundEvent getCelebrateSound() {
-        return isRitual() || isPhasedOut() ? null : IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_CELEBRATE.get();
+        return isRitual() || isPhasedOut() ? null : IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_CELEBRATE;
     }
 
     protected SoundEvent getAmbientSound() {
-        return this.isRitual() || this.isPhasedOut() ? null : IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_AMBIENT.get();
+        return this.isRitual() || this.isPhasedOut() ? null : IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_HURT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return this.isActive() ? null : IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_DEATH.get();
+        return this.isActive() ? null : IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_DEATH;
     }
 
     public boolean doesAttackMeetNormalRequirements() {
@@ -1384,7 +1384,7 @@ public class SpiritcallerEntity extends AbstractIllager {
     }
 
     public boolean areStealableMobsNearby() {
-        List<Mob> list = this.level().getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(15.0), (predicate) -> Config.CommonConfig.spiritcaller_stealableMobs.get().contains(predicate.getEncodeId()) && !predicate.isInvulnerable() && predicate != this);
+        List<Mob> list = this.level().getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(15.0), (predicate) -> Config.CommonConfig.spiritcaller_stealableMobs.contains(predicate.getEncodeId()) && !predicate.isInvulnerable() && predicate != this);
         return !list.isEmpty();
     }
 
@@ -1393,7 +1393,7 @@ public class SpiritcallerEntity extends AbstractIllager {
     }
 
     public boolean areStolenMobsNearby() {
-        List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(100.0), (predicate) -> Config.CommonConfig.spiritcaller_stealableMobs.get().contains(predicate.getEncodeId()) && !predicate.isInvulnerable() && predicate.hasEffect(EffectRegisterer.DISABILITY.get()));
+        List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(100.0), (predicate) -> Config.CommonConfig.spiritcaller_stealableMobs.get().contains(predicate.getEncodeId()) && !predicate.isInvulnerable() && predicate.hasEffect(EffectRegisterer.DISABILITY));
         return !list.isEmpty();
     }
 
@@ -1446,7 +1446,7 @@ public class SpiritcallerEntity extends AbstractIllager {
         }
 
         public void start() {
-            SpiritcallerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_IMPRISE.get(), 4.0f, 1.0f);
+            SpiritcallerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_IMPRISE, 4.0f, 1.0f);
             SpiritcallerEntity.this.setArmsUpward(true);
             SpiritcallerEntity.this.setFaking(true);
             SpiritcallerEntity.this.attackType = SpiritcallerEntity.this.ANTICHEESE;
@@ -1476,7 +1476,7 @@ public class SpiritcallerEntity extends AbstractIllager {
         }
 
         public void start() {
-            EntityUtil.mobFollowingSound(level(), SpiritcallerEntity.this, IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_STEALSPIRITS.get(), 2.0F, 1.0F, false);
+            EntityUtil.mobFollowingSound(level(), SpiritcallerEntity.this, IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_STEALSPIRITS, 2.0F, 1.0F, false);
             SpiritcallerEntity.this.setArmsUpward(true);
             SpiritcallerEntity.this.attackType = SpiritcallerEntity.this.SPIRIT_STEAL;
             List<Mob> stealingMobs = SpiritcallerEntity.this.level().getEntitiesOfClass(Mob.class, SpiritcallerEntity.this.getBoundingBox().inflate(15.0), (predicate) -> Config.CommonConfig.spiritcaller_stealableMobs.get().contains(predicate.getEncodeId()) && !predicate.isInvulnerable() && predicate != SpiritcallerEntity.this);
@@ -1509,7 +1509,7 @@ public class SpiritcallerEntity extends AbstractIllager {
 
                 for (LivingEntity entity : SpiritcallerEntity.this.stolen_mobs) {
                     if (!SpiritcallerEntity.this.level().isClientSide) {
-                        MobSpiritEntity spirit = ModEntityTypes.MobSpirit.get().create(SpiritcallerEntity.this.level());
+                        MobSpiritEntity spirit = ModEntityTypes.MobSpirit.create(SpiritcallerEntity.this.level());
 
                         assert spirit != null;
 
@@ -1550,7 +1550,7 @@ public class SpiritcallerEntity extends AbstractIllager {
         }
 
         public void start() {
-            EntityUtil.mobFollowingSound(level(), SpiritcallerEntity.this, IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_SPIRITSWARM.get(), 2.0F, 1.0F, false);
+            EntityUtil.mobFollowingSound(level(), SpiritcallerEntity.this, IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_SPIRITSWARM, 2.0F, 1.0F, false);
             SpiritcallerEntity.this.setArmsUpward(true);
             SpiritcallerEntity.this.attackType = SpiritcallerEntity.this.SOUL_SWARM;
         }
@@ -1561,7 +1561,7 @@ public class SpiritcallerEntity extends AbstractIllager {
             SpiritcallerEntity.this.spiritSwarmCooldown = 200;
             SpiritcallerEntity.this.setArmsUpward(false);
             if (SpiritcallerEntity.this.getTarget() != null) {
-                SpiritcallerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_SOULSCREAM.get(), 3.0F, SpiritcallerEntity.this.getVoicePitch());
+                SpiritcallerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_SOULSCREAM, 3.0F, SpiritcallerEntity.this.getVoicePitch());
                 LivingEntity entity = SpiritcallerEntity.this.getTarget();
                 double x = SpiritcallerEntity.this.getX() - entity.getX();
                 double y = SpiritcallerEntity.this.getY() - entity.getY();
@@ -1597,7 +1597,7 @@ public class SpiritcallerEntity extends AbstractIllager {
         }
 
         public void start() {
-            SpiritcallerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_IMPRISE.get(), 2.0F, 1.0F);
+            SpiritcallerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_IMPRISE, 2.0F, 1.0F);
             SpiritcallerEntity.this.setArmsUpward(true);
             SpiritcallerEntity.this.attackType = SpiritcallerEntity.this.IMP_RISE;
         }
@@ -1628,7 +1628,7 @@ public class SpiritcallerEntity extends AbstractIllager {
         }
 
         public void start() {
-            EntityUtil.mobFollowingSound(level(), SpiritcallerEntity.this, IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_SPIRITHANDS.get(), 2.0F, 1.0F, false);
+            EntityUtil.mobFollowingSound(level(), SpiritcallerEntity.this, IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_SPIRITHANDS, 2.0F, 1.0F, false);
             SpiritcallerEntity.this.setSpinning(true);
             SpiritcallerEntity.this.attackType = SpiritcallerEntity.this.SPIRIT_HANDS;
         }
@@ -1659,7 +1659,7 @@ public class SpiritcallerEntity extends AbstractIllager {
         }
 
         public void start() {
-            EntityUtil.mobFollowingSound(level(), SpiritcallerEntity.this, IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_CHARGELASER.get(), 2.0F, 1.0F, false);
+            EntityUtil.mobFollowingSound(level(), SpiritcallerEntity.this, IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_CHARGELASER, 2.0F, 1.0F, false);
             SpiritcallerEntity.this.setChargingLaser(true);
             SpiritcallerEntity.this.attackType = SpiritcallerEntity.this.SOUL_LASER;
         }

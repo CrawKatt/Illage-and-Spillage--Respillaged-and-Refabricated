@@ -34,8 +34,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 
 public class FakeMagispellerEntity extends AbstractIllager {
     private Mob owner;
@@ -131,19 +131,19 @@ public class FakeMagispellerEntity extends AbstractIllager {
     }
 
     public SoundEvent getCelebrateSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_CELEBRATE.get();
+        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_CELEBRATE;
     }
 
     protected SoundEvent getAmbientSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_FAKER_AMBIENT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_FAKER_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return IllageAndSpillageSoundEvents.ENTITY_FAKER_DEATH.get();
+        return IllageAndSpillageSoundEvents.ENTITY_FAKER_DEATH;
     }
 
     protected SoundEvent getDeathSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_FAKER_DEATH.get();
+        return IllageAndSpillageSoundEvents.ENTITY_FAKER_DEATH;
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance p_34286_) {

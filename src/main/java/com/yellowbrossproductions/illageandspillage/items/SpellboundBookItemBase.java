@@ -22,11 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.ForgeEventFactory;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class SpellboundBookItemBase extends Item {
@@ -34,8 +30,7 @@ public class SpellboundBookItemBase extends Item {
         super(new Item.Properties());
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+    public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (!InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 340)) {
             tooltip.add(Component.translatable("tooltip.illageandspillage.shift"));
@@ -114,13 +109,12 @@ public class SpellboundBookItemBase extends Item {
             worldIn.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.END_PORTAL_SPAWN, SoundSource.PLAYERS, 2.0F, 0.8F);
             worldIn.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LIGHTNING_BOLT_IMPACT, SoundSource.PLAYERS, 2.0F, 0.8F);
             worldIn.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LIGHTNING_BOLT_THUNDER, SoundSource.PLAYERS, 10000.0F, 0.8F);
-            player.addEffect(new MobEffectInstance(EffectRegisterer.MISCONDUCTION.get(), Config.CommonConfig.spellboundbook_effectTime.get() * 1200, 0, true, false));
+            player.addEffect(new MobEffectInstance(EffectRegisterer.MISCONDUCTION, Config.CommonConfig.spellboundbook_effectTime.get() * 1200, 0, true, false));
             if (!player.getAbilities().instabuild) {
                 this.setDamage(stack, 72000);
             }
 
             player.awardStat(Stats.ITEM_USED.get(this));
         }
-
     }
 }

@@ -22,7 +22,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fluids.FluidType;
+//import net.minecraftforge.fluids.FluidType;
 
 import java.util.Objects;
 
@@ -64,9 +64,11 @@ public class CrashagerEntity extends Monster implements IllagerAttack {
         return false;
     }
 
+    /*
     public boolean canBeRiddenUnderFluidType(FluidType type, Entity rider) {
         return true;
     }
+    */
 
     public void tick() {
         if (this.isAlive()) {
@@ -82,7 +84,7 @@ public class CrashagerEntity extends Monster implements IllagerAttack {
                 }
 
                 if (this.spawnTicks == 15) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_RAVAGER_ROAR.get(), 3.0F, this.getVoicePitch());
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_RAVAGER_ROAR, 3.0F, this.getVoicePitch());
                     CameraShakeEntity.cameraShake(this.level(), this.position(), 50.0F, 0.4F, 0, 20);
                     this.setAttackStage(2);
                     if (this.getTarget() != null) {

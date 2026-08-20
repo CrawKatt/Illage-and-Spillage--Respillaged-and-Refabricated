@@ -34,8 +34,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PacketDistributor;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -78,13 +78,13 @@ public class PreserverEntity extends AbstractIllager {
     public boolean causeFallDamage(float p_147187_, float p_147188_, DamageSource p_147189_) {
         if (this.isTryingToProtect()) {
             if (this.getThingToProtect() != null && this.getThingToProtect().isAlive() && this.getThingToProtect().distanceToSqr(this) < 6.0) {
-                this.getThingToProtect().addEffect(new MobEffectInstance(EffectRegisterer.PRESERVED.get(), MobEffectInstance.INFINITE_DURATION, 0, false, false));
+                this.getThingToProtect().addEffect(new MobEffectInstance(EffectRegisterer.PRESERVED, MobEffectInstance.INFINITE_DURATION, 0, false, false));
                 this.entityToParticle = this.getThingToProtect();
                 this.tickCountWhenProtected = this.getThingToProtect().tickCount;
             }
 
             this.setTryingToProtect(false);
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_PRESERVER_LAND.get(), 1.0F, 1.0F);
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_PRESERVER_LAND, 1.0F, 1.0F);
             if (!this.level().isClientSide) {
                 this.setJumpAnimationTick(0);
             }
@@ -185,23 +185,23 @@ public class PreserverEntity extends AbstractIllager {
     }
 
     public SoundEvent getCelebrateSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_PRESERVER_AMBIENT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_PRESERVER_AMBIENT;
     }
 
     protected SoundEvent getAmbientSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_PRESERVER_AMBIENT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_PRESERVER_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return IllageAndSpillageSoundEvents.ENTITY_PRESERVER_HURT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_PRESERVER_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_PRESERVER_DEATH.get();
+        return IllageAndSpillageSoundEvents.ENTITY_PRESERVER_DEATH;
     }
 
     public boolean isSomethingProtectableNearby() {
-        return !this.level().getEntitiesOfClass(Raider.class, this.getBoundingBox().inflate(12.0), (predicate) -> !(predicate instanceof IllagerAttack) && !(predicate instanceof EngineerMachine) && !(predicate instanceof FactoryMinion) && (double) predicate.getBbWidth() < 1.0 && (double) predicate.getBbHeight() < 2.5 && this.hasLineOfSight(predicate) && predicate.isAlive() && !(predicate instanceof PreserverEntity) && !predicate.hasEffect(EffectRegisterer.PRESERVED.get()) && EntityUtil.isMobNotOnOtherTeam(predicate, this) && !(Config.CommonConfig.preserver_cannotProtect.get()).contains(predicate.getEncodeId())).isEmpty();
+        return !this.level().getEntitiesOfClass(Raider.class, this.getBoundingBox().inflate(12.0), (predicate) -> !(predicate instanceof IllagerAttack) && !(predicate instanceof EngineerMachine) && !(predicate instanceof FactoryMinion) && (double) predicate.getBbWidth() < 1.0 && (double) predicate.getBbHeight() < 2.5 && this.hasLineOfSight(predicate) && predicate.isAlive() && !(predicate instanceof PreserverEntity) && !predicate.hasEffect(EffectRegisterer.PRESERVED) && EntityUtil.isMobNotOnOtherTeam(predicate, this) && !(Config.CommonConfig.preserver_cannotProtect).get().contains(predicate.getEncodeId())).isEmpty();
     }
 
     protected float getStandingEyeHeight(Pose p_21131_, EntityDimensions p_21132_) {
@@ -227,14 +227,14 @@ public class PreserverEntity extends AbstractIllager {
         }
 
         public void start() {
-            List<Raider> list = PreserverEntity.this.level().getEntitiesOfClass(Raider.class, PreserverEntity.this.getBoundingBox().inflate(6.0), (predicate) -> !(predicate instanceof IllagerAttack) && !(predicate instanceof EngineerMachine) && !(predicate instanceof FactoryMinion) && (double) predicate.getBbWidth() < 1.0 && (double) predicate.getBbHeight() < 2.5 && PreserverEntity.this.hasLineOfSight(predicate) && predicate.isAlive() && !(predicate instanceof PreserverEntity) && !predicate.hasEffect(EffectRegisterer.PRESERVED.get()) && EntityUtil.isMobNotOnOtherTeam(predicate, PreserverEntity.this) && !(Config.CommonConfig.preserver_cannotProtect.get()).contains(predicate.getEncodeId()));
+            List<Raider> list = PreserverEntity.this.level().getEntitiesOfClass(Raider.class, PreserverEntity.this.getBoundingBox().inflate(6.0), (predicate) -> !(predicate instanceof IllagerAttack) && !(predicate instanceof EngineerMachine) && !(predicate instanceof FactoryMinion) && (double) predicate.getBbWidth() < 1.0 && (double) predicate.getBbHeight() < 2.5 && PreserverEntity.this.hasLineOfSight(predicate) && predicate.isAlive() && !(predicate instanceof PreserverEntity) && !predicate.hasEffect(EffectRegisterer.PRESERVED) && EntityUtil.isMobNotOnOtherTeam(predicate, PreserverEntity.this) && !(Config.CommonConfig.preserver_cannotProtect).get().contains(predicate.getEncodeId()));
             if (!list.isEmpty()) {
                 LivingEntity thing = list.get(PreserverEntity.this.random.nextInt(list.size()));
                 PreserverEntity.this.setThingToProtect(thing);
                 double multiplier = 0.2;
                 PreserverEntity.this.setDeltaMovement((thing.getX() - PreserverEntity.this.getX()) * multiplier, 1.2, (thing.getZ() - PreserverEntity.this.getZ()) * multiplier);
                 PreserverEntity.this.setTryingToProtect(true);
-                PreserverEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_PRESERVER_JUMP.get(), 1.0F, 1.0F);
+                PreserverEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_PRESERVER_JUMP, 1.0F, 1.0F);
             }
 
         }

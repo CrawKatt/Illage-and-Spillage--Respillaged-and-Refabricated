@@ -35,7 +35,6 @@ import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
@@ -118,9 +117,11 @@ public class CrocofangEntity extends Raider implements ICanBeAnimated {
     public void applyRaidBuffs(int p_37844_, boolean p_37845_) {
     }
 
+    /*
     public boolean canBeRiddenUnderFluidType(FluidType type, Entity rider) {
         return true;
     }
+    */
 
     public boolean canBeLeader() {
         return false;

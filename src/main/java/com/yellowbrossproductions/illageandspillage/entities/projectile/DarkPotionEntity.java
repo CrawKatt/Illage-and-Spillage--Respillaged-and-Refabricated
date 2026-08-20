@@ -26,8 +26,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.HitResult.Type;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -163,7 +163,7 @@ public class DarkPotionEntity extends ThrownPotion {
     }
 
     public boolean isLingering() {
-        return this.getItem().is(ItemRegisterer.DARK_LINGER.get());
+        return this.getItem().is(ItemRegisterer.DARK_LINGER);
     }
 
 }

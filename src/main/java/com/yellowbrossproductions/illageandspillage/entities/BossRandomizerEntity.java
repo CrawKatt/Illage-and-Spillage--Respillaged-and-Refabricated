@@ -32,8 +32,8 @@ import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.util.Collections;
@@ -84,7 +84,7 @@ public class BossRandomizerEntity extends AbstractIllager {
         if (this.tickCount >= 15 && this.getCurrentRaid() != null) {
             if (this.getCurrentRaid().getGroupsSpawned() <= 7) {
                 if (Config.CommonConfig.bossrandomizer_broadcastBossSpawn.get()) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_BOSSRANDOMIZER_BOSS.get(), 15.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_BOSSRANDOMIZER_BOSS, 15.0F, 1.0F);
                 }
 
                 this.spawnBoss();
@@ -94,9 +94,9 @@ public class BossRandomizerEntity extends AbstractIllager {
                     int i = localdate.get(ChronoField.DAY_OF_MONTH);
                     int j = localdate.get(ChronoField.MONTH_OF_YEAR);
                     if (j == 4 && i == 1) {
-                        this.playSound(IllageAndSpillageSoundEvents.ENTITY_BOSSRANDOMIZER_GOOFY.get(), 15.0F, 1.0F);
+                        this.playSound(IllageAndSpillageSoundEvents.ENTITY_BOSSRANDOMIZER_GOOFY, 15.0F, 1.0F);
                     } else {
-                        this.playSound(IllageAndSpillageSoundEvents.ENTITY_BOSSRANDOMIZER_FINALBOSS.get(), 15.0F, 1.0F);
+                        this.playSound(IllageAndSpillageSoundEvents.ENTITY_BOSSRANDOMIZER_FINALBOSS, 15.0F, 1.0F);
                     }
                 }
 
@@ -236,15 +236,15 @@ public class BossRandomizerEntity extends AbstractIllager {
     }
 
     protected SoundEvent getAmbientSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_BOSSRANDOMIZER_AMBIENT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_BOSSRANDOMIZER_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return IllageAndSpillageSoundEvents.ENTITY_BOSSRANDOMIZER_HURT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_BOSSRANDOMIZER_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_BOSSRANDOMIZER_DEATH.get();
+        return IllageAndSpillageSoundEvents.ENTITY_BOSSRANDOMIZER_DEATH;
     }
 
     public boolean isCustomNameVisible() {

@@ -1,16 +1,24 @@
 package com.yellowbrossproductions.illageandspillage.particle;
 
-import net.minecraft.core.particles.ParticleType;
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.BuiltInRegistries;
 
-public class ParticleRegisterer {
-    public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, "illageandspillage");
+public final class ParticleRegisterer {
+    private static final String MOD_ID = "illageandspillage";
 
-    public static final RegistryObject<SimpleParticleType> MUTATION_PARTICLES = PARTICLE_TYPES.register("mutation_particles", () -> new SimpleParticleType(true));
-    public static final RegistryObject<SimpleParticleType> MUTATION_PARTICLES2 = PARTICLE_TYPES.register("mutation_particles2", () -> new SimpleParticleType(true));
-    public static final RegistryObject<SimpleParticleType> MUTATION_DRIP_PARTICLES = PARTICLE_TYPES.register("mutation_drip_particles", () -> new SimpleParticleType(true));
-    public static final RegistryObject<SimpleParticleType> BLOOD_PARTICLES = PARTICLE_TYPES.register("blood_particles", () -> new SimpleParticleType(true));
+    public static final SimpleParticleType MUTATION_PARTICLES = register("mutation_particles");
+    public static final SimpleParticleType MUTATION_PARTICLES2 = register("mutation_particles2");
+    public static final SimpleParticleType MUTATION_DRIP_PARTICLES = register("mutation_drip_particles");
+    public static final SimpleParticleType BLOOD_PARTICLES = register("blood_particles");
+
+    private static SimpleParticleType register(String name) {
+        return Registry.register(BuiltInRegistries.PARTICLE_TYPE, new ResourceLocation(MOD_ID, name), FabricParticleTypes.simple(true));
+    }
+
+    public static void init() {
+
+    }
 }

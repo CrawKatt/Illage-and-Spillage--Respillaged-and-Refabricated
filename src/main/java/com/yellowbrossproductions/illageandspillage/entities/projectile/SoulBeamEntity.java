@@ -20,8 +20,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.HitResult.Type;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkHooks;
 
 import java.util.ArrayList;
@@ -50,7 +48,6 @@ public class SoulBeamEntity extends Entity {
     private static final EntityDataAccessor<Integer> CASTER;
     public float prevYaw;
     public float prevPitch;
-    @OnlyIn(Dist.CLIENT)
     private Vec3[] attractorPos;
 
     public SoulBeamEntity(EntityType<? extends SoulBeamEntity> p_19870_, Level p_19871_) {

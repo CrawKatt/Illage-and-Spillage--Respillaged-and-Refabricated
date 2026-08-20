@@ -128,7 +128,7 @@ public class MobSpiritEntity extends Monster {
         }
 
         if (this.getOriginalMob() instanceof Mob) {
-            this.getOriginalMob().addEffect(new MobEffectInstance(EffectRegisterer.DISABILITY.get(), 5, 0, true, true, true));
+            this.getOriginalMob().addEffect(new MobEffectInstance(EffectRegisterer.DISABILITY, 5, 0, true, true, true));
         }
 
         if (this.getOwner() instanceof Mob) {
@@ -148,7 +148,7 @@ public class MobSpiritEntity extends Monster {
                         double motionZ = this.getDeltaMovement().z - z / d * (double) power * 0.2;
                         this.setDeltaMovement(motionX, motionY, motionZ);
                         if (this.distanceToSqr(this.getOwner()) < 6.0) {
-                            this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_SPIRITABSORB.get(), 2.0F, this.getVoicePitch());
+                            this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_SPIRITABSORB, 2.0F, this.getVoicePitch());
                             spiritcaller.setSoulPower(spiritcaller.getSoulPower() + 1);
                             spiritcaller.makeParticles();
                             this.discard();
@@ -205,11 +205,11 @@ public class MobSpiritEntity extends Monster {
     }
 
     protected SoundEvent getHurtSound(DamageSource p_33034_) {
-        return this.isSpiritcaller() ? IllageAndSpillageSoundEvents.ENTITY_MOBSPIRIT_HURTCORRUPTED.get() : IllageAndSpillageSoundEvents.ENTITY_MOBSPIRIT_HURT.get();
+        return this.isSpiritcaller() ? IllageAndSpillageSoundEvents.ENTITY_MOBSPIRIT_HURTCORRUPTED : IllageAndSpillageSoundEvents.ENTITY_MOBSPIRIT_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return this.isSpiritcaller() ? IllageAndSpillageSoundEvents.ENTITY_MOBSPIRIT_DEATHCORRUPTED.get() : IllageAndSpillageSoundEvents.ENTITY_MOBSPIRIT_DEATH.get();
+        return this.isSpiritcaller() ? IllageAndSpillageSoundEvents.ENTITY_MOBSPIRIT_DEATHCORRUPTED : IllageAndSpillageSoundEvents.ENTITY_MOBSPIRIT_DEATH;
     }
 
     public void handleEntityEvent(byte p_21375_) {

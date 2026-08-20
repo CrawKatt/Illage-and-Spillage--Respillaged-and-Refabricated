@@ -118,7 +118,7 @@ public class TwittollagerEntity extends AbstractIllager {
                 this.setAngry(true);
             }
 
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_ANGRY.get(), 2.0F, 1.0F);
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_ANGRY, 2.0F, 1.0F);
         }
 
         if (this.getTarget() instanceof Sheep && ((Sheep) this.getTarget()).getColor() == DyeColor.PINK && !this.isAngry()) {
@@ -127,7 +127,7 @@ public class TwittollagerEntity extends AbstractIllager {
                 this.setAngry(true);
             }
 
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_ANGRY.get(), 2.0F, 1.0F);
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_ANGRY, 2.0F, 1.0F);
         }
 
         if (this.getTarget() instanceof Villager && ((Villager) this.getTarget()).getAge() < 0 && !this.isAngry()) {
@@ -136,13 +136,13 @@ public class TwittollagerEntity extends AbstractIllager {
                 this.setAngry(true);
             }
 
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_ANGRY.get(), 2.0F, 1.0F);
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_ANGRY, 2.0F, 1.0F);
         }
 
         if (this.isStaring()) {
             ++this.waitTime;
             if (this.waitTime > 60 && this.random.nextInt(25) == 0 && !this.hasPhoneDinged() && !this.isAngry()) {
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_DING.get(), 1.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_DING, 1.0F, 1.0F);
                 this.setPhoneDinged(true);
             }
         }
@@ -151,7 +151,7 @@ public class TwittollagerEntity extends AbstractIllager {
             ++this.checkPhoneTicks;
             if (!this.isAngry()) {
                 if (this.checkPhoneTicks == 15) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_HMM.get(), 1.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_HMM, 1.0F, 1.0F);
                     if (!this.level().isClientSide) {
                         this.setHmm(true);
                     }
@@ -166,7 +166,7 @@ public class TwittollagerEntity extends AbstractIllager {
                         this.setAngry(true);
                     }
 
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_ANGRY.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_ANGRY, 2.0F, 1.0F);
                 }
             }
         }
@@ -196,7 +196,7 @@ public class TwittollagerEntity extends AbstractIllager {
                     this.setAngry(true);
                 }
 
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_ANGRY.get(), 2.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_ANGRY, 2.0F, 1.0F);
             }
 
             return super.hurt(source, amount);
@@ -208,19 +208,19 @@ public class TwittollagerEntity extends AbstractIllager {
     }
 
     public SoundEvent getCelebrateSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_CELEBRATE.get();
+        return IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_CELEBRATE;
     }
 
     protected SoundEvent getAmbientSound() {
-        return !this.hasPhoneDinged() && !this.isAngry() ? IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_AMBIENT.get() : null;
+        return !this.hasPhoneDinged() && !this.isAngry() ? IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_AMBIENT : null;
     }
 
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_HURT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return this.isExplode() && !this.canExplodeInfinitely ? null : IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_DEATH.get();
+        return this.isExplode() && !this.canExplodeInfinitely ? null : IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_DEATH;
     }
 
     public boolean isAngry() {
@@ -293,8 +293,8 @@ public class TwittollagerEntity extends AbstractIllager {
 
     private void explode() {
         this.setExplode(true);
-        this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_EXPLODE.get(), 6.0F, 1.0F);
-        this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_SCREAM.get(), 6.0F, 1.0F);
+        this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_EXPLODE, 6.0F, 1.0F);
+        this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_SCREAM, 6.0F, 1.0F);
         CameraShakeEntity.cameraShake(this.level(), this.position(), 30.0F, 0.4F, 0, 20);
         if (!this.canExplodeInfinitely) this.kill();
         this.makeExplodeParticles();
@@ -404,7 +404,7 @@ public class TwittollagerEntity extends AbstractIllager {
         }
 
         public void start() {
-            TwittollagerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_CHARGE.get(), 2.0F, 1.0F);
+            TwittollagerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_TWITTOLLAGER_CHARGE, 2.0F, 1.0F);
         }
 
         public boolean canContinueToUse() {

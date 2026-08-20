@@ -71,8 +71,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
 import net.minecraftforge.network.PacketDistributor;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.*;
 
 public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated {
@@ -322,7 +322,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
     }
 
     public SoundEvent getBossMusic() {
-        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_MUSIC.get();
+        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_MUSIC;
     }
 
     protected boolean canPlayMusic() {
@@ -463,7 +463,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
             if (this.getAttackType() == this.FIREBALL_ATTACK) {
                 entity = this.getTarget();
                 if (this.getAttackTicks() == 8) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_FIREBALL_START.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_FIREBALL_START, 2.0F, 1.0F);
                     this.makeFireParticles();
                     CameraShakeEntity.cameraShake(this.level(), this.position(), 30.0F, 0.3F, 0, 15);
                     if (!this.level().isClientSide) {
@@ -474,9 +474,9 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 if (this.getAttackTicks() == 14) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_FIREBALL.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_FIREBALL, 2.0F, 1.0F);
                     if (!this.level().isClientSide) {
-                        this.fireball = new MagiFireballEntity(ModEntityTypes.MagiFireball.get(), this.level());
+                        this.fireball = new MagiFireballEntity(ModEntityTypes.MagiFireball, this.level());
                         this.level().addFreshEntity(this.fireball);
                     }
                 }
@@ -492,7 +492,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 if (this.getAttackTicks() == 55) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_SWING_BAT.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_SWING_BAT, 2.0F, 1.0F);
                 }
 
                 if (this.getAttackTicks() == 58) {
@@ -530,7 +530,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 if (this.getAttackTicks() == 36) {
-                    EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_LIFESTEAL.get(), 2.0F, 1.0F, false);
+                    EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_LIFESTEAL, 2.0F, 1.0F, false);
                 }
 
                 if (this.getAttackTicks() >= 36) {
@@ -598,7 +598,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
             }
 
             if (this.getAttackType() == this.VEXES_ATTACK && this.getAttackTicks() == 20) {
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_CAST_SPELL.get(), 1.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_CAST_SPELL, 1.0F, 1.0F);
                 if (!this.level().isClientSide) {
                     ServerLevel serverworld = (ServerLevel) this.level();
                     BlockPos blockpos = this.blockPosition();
@@ -632,8 +632,8 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
 
                     this.createFangs(false);
                     if (this.getAttackTicks() == 6) {
-                        this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_FANGRUN_START.get(), 1.0F, 1.0F);
-                        EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_FANGRUN.get(), 2.0F, 1.0F, false);
+                        this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_FANGRUN_START, 1.0F, 1.0F);
+                        EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_FANGRUN, 2.0F, 1.0F, false);
                         this.makeFangRunParticles();
                         CameraShakeEntity.cameraShake(this.level(), this.position(), 30.0F, 0.3F, 0, 20);
                         if (!this.level().isClientSide) {
@@ -681,7 +681,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
             int i;
             if (this.getAttackType() == this.POTIONS_ATTACK) {
                 if (this.getAttackTicks() == 10) {
-                    EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_POTIONS.get(), 2.0F, 1.0F, false);
+                    EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_POTIONS, 2.0F, 1.0F, false);
                 }
 
                 if (this.getAttackTicks() > 22) {
@@ -743,7 +743,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 if (this.getAttackTicks() == 41) {
                     this.setAnimationState(0);
                     if (this.getTarget() != null) {
-                        EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_SPIN.get(), 1.0F, 1.0F, false);
+                        EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_SPIN, 1.0F, 1.0F, false);
 
                         if (!this.level().isClientSide) {
                             this.setArrowState(1);
@@ -764,7 +764,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                         this.setArrowState(2);
                     }
 
-                    EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_ARROWBARRAGE.get(), 2.0F, 1.0F, false);
+                    EntityUtil.mobFollowingSound(this.level(), this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_ARROWBARRAGE, 2.0F, 1.0F, false);
                 }
 
                 if (this.getAttackTicks() >= 59 && this.getTarget() != null) {
@@ -790,7 +790,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                     if (this.getTarget() != null) {
                         CrashagerEntity ravager = null;
                         if (!this.level().isClientSide) {
-                            ravager = ModEntityTypes.Crashager.get().create(this.level());
+                            ravager = ModEntityTypes.Crashager.create(this.level());
                         }
 
                         if (ravager != null) {
@@ -818,13 +818,13 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 }
 
                 if (this.getAttackTicks() == 20) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_LOAD.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_LOAD, 2.0F, 1.0F);
                 }
 
                 if (this.getAttackTicks() == 30) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_SHOOT.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_SHOOT, 2.0F, 1.0F);
                     if (!this.level().isClientSide) {
-                        DispenserEntity dispenser = ModEntityTypes.Dispenser.get().create(this.level());
+                        DispenserEntity dispenser = ModEntityTypes.Dispenser.create(this.level());
 
                         assert dispenser != null;
 
@@ -1646,7 +1646,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
             }
 
             if (this.customDeathTime == 110) {
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_LAUGH.get(), 1.0F, 1.0F);
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_LAUGH, 1.0F, 1.0F);
             }
 
             if (this.customDeathTime >= 110 && this.mobToLaughAt != null) {
@@ -1667,7 +1667,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
 
             if (this.customDeathTime >= 270 && this.customDeathTime < 290) {
                 if (this.customDeathTime == 270) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_ESCAPE.get(), 2.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_ESCAPE, 2.0F, 1.0F);
                 }
 
                 if (!this.level().isClientSide) {
@@ -1702,7 +1702,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
 
     protected void dropAllDeathLoot(DamageSource source) {
         if (this.shouldDropLoot() && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT) && this.lastHurtByPlayerTime > 0 && shouldDropDisc) {
-            this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(ItemRegisterer.MAGISPELLER_DISC.get())));
+            this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(ItemRegisterer.MAGISPELLER_DISC)));
         }
         super.dropAllDeathLoot(source);
     }
@@ -1862,19 +1862,19 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
     }
 
     public SoundEvent getCelebrateSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_CELEBRATE.get();
+        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_CELEBRATE;
     }
 
     protected SoundEvent getAmbientSound() {
-        return !this.isFaking() ? IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_AMBIENT.get() : IllageAndSpillageSoundEvents.ENTITY_FAKER_AMBIENT.get();
+        return !this.isFaking() ? IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_AMBIENT : IllageAndSpillageSoundEvents.ENTITY_FAKER_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_HURT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_DEATH.get();
+        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_DEATH;
     }
 
     public boolean areIllagersNearby() {
@@ -2021,7 +2021,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
     }
 
     public Component getName() {
-        return !this.hasCustomName() && this.isFaking() ? ModEntityTypes.Faker.get().getDescription() : super.getName();
+        return !this.hasCustomName() && this.isFaking() ? ModEntityTypes.Faker.getDescription() : super.getName();
     }
 
     public void setAnimationState(int input) {
@@ -2165,7 +2165,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
 
         public void start() {
             MagispellerEntity.this.setAnimationState(11);
-            EntityUtil.mobFollowingSound(level(), MagispellerEntity.this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_KABOOMER.get(), 3.0F, 1.0F, false);
+            EntityUtil.mobFollowingSound(level(), MagispellerEntity.this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_KABOOMER, 3.0F, 1.0F, false);
             MagispellerEntity.this.setAttackType(MagispellerEntity.this.KABOOMER_ATTACK);
             if (!MagispellerEntity.this.level().isClientSide) {
                 MagispellerEntity.this.setShowArms(true);
@@ -2202,7 +2202,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
             if (MagispellerEntity.this.getTarget() != null) {
                 KaboomerEntity kaboomer = null;
                 if (!MagispellerEntity.this.level().isClientSide) {
-                    kaboomer = ModEntityTypes.Kaboomer.get().create(MagispellerEntity.this.level());
+                    kaboomer = ModEntityTypes.Kaboomer.create(MagispellerEntity.this.level());
                 }
 
                 if (kaboomer != null) {
@@ -2233,7 +2233,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
         }
 
         public void start() {
-            MagispellerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_HEAL.get(), 2.0F, 1.0F);
+            MagispellerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_HEAL, 2.0F, 1.0F);
             MagispellerEntity.this.setAttackType(MagispellerEntity.this.HEAL_ATTACK);
             MagispellerEntity.this.gotHealed = true;
             MagispellerEntity.this.damageTaken = 0.0F;
@@ -2241,7 +2241,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 MagispellerEntity.this.setShowArms(true);
                 MagispellerEntity.this.setWavingArms(true);
                 MagispellerEntity.this.setGlowState(6);
-                MagiHealEntity healRing = ModEntityTypes.MagiHeal.get().create(MagispellerEntity.this.level());
+                MagiHealEntity healRing = ModEntityTypes.MagiHeal.create(MagispellerEntity.this.level());
 
                 assert healRing != null;
 
@@ -2280,7 +2280,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 MagispellerEntity.this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 3));
             } else if (!MagispellerEntity.this.isBalloon()) {
                 MagispellerEntity.this.makeHealFailedParticles();
-                MagispellerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_HEAL_INTERRUPT.get(), 2.0F, 1.0F);
+                MagispellerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_HEAL_INTERRUPT, 2.0F, 1.0F);
             }
 
             MagispellerEntity.this.healCooldown = 200;
@@ -2298,7 +2298,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
 
         public void start() {
             MagispellerEntity.this.setAnimationState(9);
-            MagispellerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_DISPENSER.get(), 2.0F, 1.0F);
+            MagispellerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_DISPENSER, 2.0F, 1.0F);
             MagispellerEntity.this.setAttackType(MagispellerEntity.this.DISPENSER_ATTACK);
             if (!MagispellerEntity.this.level().isClientSide) {
                 MagispellerEntity.this.setShowArms(true);
@@ -2344,7 +2344,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
 
         public void start() {
             MagispellerEntity.this.setAnimationState(8);
-            EntityUtil.mobFollowingSound(level(), MagispellerEntity.this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_RAVAGER.get(), 2.0F, 1.0F, false);
+            EntityUtil.mobFollowingSound(level(), MagispellerEntity.this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_RAVAGER, 2.0F, 1.0F, false);
             MagispellerEntity.this.setAttackType(MagispellerEntity.this.CRASHAGER_ATTACK);
             if (!MagispellerEntity.this.level().isClientSide) {
                 MagispellerEntity.this.setShowArms(true);
@@ -2390,7 +2390,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
         public void start() {
             MagispellerEntity.this.setAnimationState(7);
             MagispellerEntity.this.setAttackType(MagispellerEntity.this.CROSSBOWSPIN_ATTACK);
-            MagispellerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_CROSSBOWSPIN.get(), 2.0F, 1.0F);
+            MagispellerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_CROSSBOWSPIN, 2.0F, 1.0F);
             if (!MagispellerEntity.this.level().isClientSide) {
                 MagispellerEntity.this.setShowArms(true);
             }
@@ -2435,7 +2435,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
         public void start() {
             MagispellerEntity.this.setAnimationState(6);
             MagispellerEntity.this.setAttackType(MagispellerEntity.this.POTIONS_ATTACK);
-            MagispellerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_POTIONS_START.get(), 2.0F, 1.0F);
+            MagispellerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_POTIONS_START, 2.0F, 1.0F);
             if (!MagispellerEntity.this.level().isClientSide) {
                 MagispellerEntity.this.setShowArms(true);
             }
@@ -2522,7 +2522,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
         }
 
         public void start() {
-            MagispellerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_SUMMON.get(), 1.0F, 1.0F);
+            MagispellerEntity.this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_SUMMON, 1.0F, 1.0F);
             MagispellerEntity.this.setAttackType(MagispellerEntity.this.VEXES_ATTACK);
             MagispellerEntity.this.setAnimationState(4);
             if (!MagispellerEntity.this.level().isClientSide) {
@@ -2568,7 +2568,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
         public void start() {
             MagispellerEntity.this.setAnimationState(3);
             MagispellerEntity.this.setAttackType(MagispellerEntity.this.FAKERS_ATTACK);
-            EntityUtil.mobFollowingSound(level(), MagispellerEntity.this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_PREPARE_FAKERS.get(), 2.0F, 1.0F, false);
+            EntityUtil.mobFollowingSound(level(), MagispellerEntity.this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_PREPARE_FAKERS, 2.0F, 1.0F, false);
             if (!MagispellerEntity.this.level().isClientSide) {
                 MagispellerEntity.this.setShowArms(true);
             }
@@ -2603,7 +2603,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
                 if (!MagispellerEntity.this.level().isClientSide) {
                     int i;
                     for (i = 0; i < 11; ++i) {
-                        FakeMagispellerEntity clone = ModEntityTypes.Faker.get().create(MagispellerEntity.this.level());
+                        FakeMagispellerEntity clone = ModEntityTypes.Faker.create(MagispellerEntity.this.level());
 
                         assert clone != null;
 
@@ -2664,7 +2664,7 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
         public void start() {
             MagispellerEntity.this.setAnimationState(2);
             MagispellerEntity.this.setAttackType(MagispellerEntity.this.LIFESTEAL_ATTACK);
-            EntityUtil.mobFollowingSound(level(), MagispellerEntity.this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_LIFESTEAL_START.get(), 2.0F, 1.0F, false);
+            EntityUtil.mobFollowingSound(level(), MagispellerEntity.this, IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_LIFESTEAL_START, 2.0F, 1.0F, false);
             if (!MagispellerEntity.this.level().isClientSide) {
                 MagispellerEntity.this.setShowArms(true);
             }

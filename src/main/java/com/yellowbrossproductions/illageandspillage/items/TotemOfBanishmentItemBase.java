@@ -29,7 +29,7 @@ public class TotemOfBanishmentItemBase extends Item {
                 }
             }
 
-            p_77659_2_.playSound(IllageAndSpillageSoundEvents.TOTEM_BANISHMENT.get(), 1.0F, 1.0F);
+            p_77659_2_.playSound(IllageAndSpillageSoundEvents.TOTEM_BANISHMENT, 1.0F, 1.0F);
             p_77659_2_.getCooldowns().addCooldown(this, 300);
         }
 
