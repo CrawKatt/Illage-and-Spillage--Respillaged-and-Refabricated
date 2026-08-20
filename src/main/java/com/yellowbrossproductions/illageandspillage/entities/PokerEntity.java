@@ -114,7 +114,7 @@ public class PokerEntity extends Raider implements FactoryMinion, IllagerAttack 
     public boolean doHurtTarget(Entity p_21372_) {
         boolean superHurt = super.doHurtTarget(p_21372_);
         if (superHurt)
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_ENGINEER_POKER_POKE.get(), 2.0F, this.getVoicePitch());
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_ENGINEER_POKER_POKE, 2.0F, this.getVoicePitch());
         return superHurt;
     }
 

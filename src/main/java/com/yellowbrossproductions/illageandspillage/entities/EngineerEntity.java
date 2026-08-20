@@ -103,23 +103,23 @@ public class EngineerEntity extends AbstractIllager implements ICanBeAnimated {
 
     @Override
     public SoundEvent getCelebrateSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_ENGINEER_AMBIENT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_ENGINEER_AMBIENT;
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_ENGINEER_AMBIENT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_ENGINEER_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_33034_) {
-        return IllageAndSpillageSoundEvents.ENTITY_ENGINEER_HURT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_ENGINEER_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_ENGINEER_DEATH.get();
+        return IllageAndSpillageSoundEvents.ENTITY_ENGINEER_DEATH;
     }
 
     public void setAnimationState(int state) {
@@ -165,12 +165,12 @@ public class EngineerEntity extends AbstractIllager implements ICanBeAnimated {
 
         if (this.isAlive()) {
             if (this.attackType == THROW_ATTACK && attackTicks == 5) {
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_ENGINEER_THROW.get(), 2.0f, this.getVoicePitch());
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_ENGINEER_THROW, 2.0f, this.getVoicePitch());
                 this.playSound(SoundEvents.WITCH_THROW, 1.0f, this.getVoicePitch());
                 if (!this.level().isClientSide) {
                     int randomSelection = this.random.nextInt(0, 3);
                     if (randomSelection == 0) {
-                        HinderEntity hinder = ModEntityTypes.Hinder.get().create(this.level());
+                        HinderEntity hinder = ModEntityTypes.Hinder.create(this.level());
 
                         assert hinder != null;
 
@@ -184,7 +184,7 @@ public class EngineerEntity extends AbstractIllager implements ICanBeAnimated {
                         hinder.setOwner(this);
                         this.level().addFreshEntity(hinder);
                     } else if (randomSelection == 1) {
-                        ChagrinSentryEntity sentry = ModEntityTypes.ChagrinSentry.get().create(this.level());
+                        ChagrinSentryEntity sentry = ModEntityTypes.ChagrinSentry.create(this.level());
 
                         assert sentry != null;
 
@@ -198,7 +198,7 @@ public class EngineerEntity extends AbstractIllager implements ICanBeAnimated {
                         sentry.setOwner(this);
                         this.level().addFreshEntity(sentry);
                     } else {
-                        FactoryEntity factory = ModEntityTypes.Factory.get().create(this.level());
+                        FactoryEntity factory = ModEntityTypes.Factory.create(this.level());
 
                         assert factory != null;
 
@@ -220,10 +220,10 @@ public class EngineerEntity extends AbstractIllager implements ICanBeAnimated {
                 if (this.repairTicks < 1 && this.distanceToSqr(this.toRepair) <= 4) {
                     repairTicks = 1;
                     this.setAnimationState(2);
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_ENGINEER_THROW.get(), 2.0f, this.getVoicePitch());
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_ENGINEER_THROW, 2.0f, this.getVoicePitch());
                 }
                 if (this.repairTicks == 8 || this.repairTicks == 21 || this.repairTicks == 31) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_ENGINEER_REPAIR.get(), 2.0f, this.getVoicePitch());
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_ENGINEER_REPAIR, 2.0f, this.getVoicePitch());
                     this.toRepair.heal(5);
                 }
             }

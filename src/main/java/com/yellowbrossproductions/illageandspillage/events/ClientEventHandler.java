@@ -7,9 +7,7 @@ import com.yellowbrossproductions.illageandspillage.util.EntityUtil;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
 
 public class ClientEventHandler {
     public static void initClient() {
@@ -19,7 +17,7 @@ public class ClientEventHandler {
 
     private static void onPreRenderHUD() {
         Player player = Minecraft.getInstance().player;
-        if (player != null && player.isPassenger() && EntityUtil.isEntityCrazyRagno(player.getVehicle()) && Minecraft.getInstance().options.getCameraType().isFirstPerson() && (player.getItemBySlot(EquipmentSlot.HEAD).is(Items.PUMPKIN) || player.getItemBySlot(EquipmentSlot.HEAD).is(Items.CARVED_PUMPKIN))) {
+        if (player != null && player.isPassenger() && EntityUtil.isEntityCrazyRagno(player.getVehicle())) {
             Minecraft.getInstance().gui.setOverlayMessage(Component.translatable("entity.illageandspillage.no_escape"), false);
         }
     }

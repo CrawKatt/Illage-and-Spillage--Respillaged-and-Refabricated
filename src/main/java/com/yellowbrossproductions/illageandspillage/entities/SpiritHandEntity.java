@@ -102,7 +102,7 @@ public class SpiritHandEntity extends PathfinderMob implements IllagerAttack {
             if (this.attackTicks > 100 && this.actualAttackTicks < 1 && this.random.nextInt(12) == 0) {
                 if (list.isEmpty()) {
                     this.setAttacking(true);
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_SPIRITHAND_WARN.get(), 4.0F, this.getVoicePitch());
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_SPIRITHAND_WARN, 4.0F, this.getVoicePitch());
                     if (this.random.nextBoolean()) {
                         if (!this.level().isClientSide) {
                             this.setAttackType(1);

@@ -5,6 +5,7 @@ import com.yellowbrossproductions.illageandspillage.Config;
 import com.yellowbrossproductions.illageandspillage.util.EntityUtil;
 import com.yellowbrossproductions.illageandspillage.util.IllageAndSpillageSoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -309,7 +310,7 @@ public class CrocofangEntity extends Raider implements ICanBeAnimated {
             Collections.shuffle(mobSpawns);
             int randomIndex = this.getRandom().nextInt(mobSpawns.size());
             String randomMobID = mobSpawns.get(randomIndex);
-            EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(randomMobID));
+            EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(new ResourceLocation(randomMobID));
             if (entityType != null) {
                 Entity entity = entityType.create(this.level());
                 if (entity instanceof Mob mobEntity && !(entity instanceof CrocofangEntity)) {

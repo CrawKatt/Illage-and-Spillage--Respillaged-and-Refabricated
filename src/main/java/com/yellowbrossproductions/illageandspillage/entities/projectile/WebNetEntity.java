@@ -95,7 +95,7 @@ public class WebNetEntity extends PathfinderMob implements IllagerAttack {
                         this.setCaught(true);
                     }
                     living.hurt(this.damageSources().thrown(living, attacker), 2.0F);
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_RAGNO_WEB_HIT.get(), 1.0F, this.getVoicePitch());
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_RAGNO_WEB_HIT, 1.0F, this.getVoicePitch());
                     this.pullingEntity = living;
                 }
             }
@@ -118,7 +118,7 @@ public class WebNetEntity extends PathfinderMob implements IllagerAttack {
 
         if (this.pullingEntity != null && this.distanceToSqr(this.pullingEntity) <= 4) {
             if (this.tickCount % 10 == 0) {
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_RAGNO_WEB_HIT.get(), 1.0F, this.getVoicePitch());
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_RAGNO_WEB_HIT, 1.0F, this.getVoicePitch());
             }
             this.pullPower += 2;
             double x = this.getAttachPoint().x - this.pullingEntity.getX();

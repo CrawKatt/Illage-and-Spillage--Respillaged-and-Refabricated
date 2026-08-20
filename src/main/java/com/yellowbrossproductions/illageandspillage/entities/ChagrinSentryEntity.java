@@ -28,7 +28,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.entity.raid.Raider;
-import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -345,10 +344,6 @@ public class ChagrinSentryEntity extends Raider implements ICanBeAnimated, Engin
         if (target == null) return;
 
         AbstractArrow abstractarrowentity = this.getArrow(Items.BOW.getDefaultInstance(), p_82196_2_);
-        if (this.getMainHandItem().getItem() instanceof BowItem) {
-            abstractarrowentity = ((BowItem) this.getMainHandItem().getItem()).customArrow(abstractarrowentity);
-        }
-
         float f = this.yBodyRot * ((float) Math.PI / 180F) * 0.25F;
         float f1 = Mth.cos(f);
         float f2 = Mth.sin(f);

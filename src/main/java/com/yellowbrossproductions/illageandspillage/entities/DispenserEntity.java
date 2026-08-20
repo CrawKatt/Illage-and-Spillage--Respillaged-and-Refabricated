@@ -42,7 +42,7 @@ public class DispenserEntity extends Monster implements IllagerAttack {
 
     public boolean causeFallDamage(float p_225503_1_, float p_225503_2_, DamageSource p_147189_) {
         if (this.isInMotion()) {
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_DISPENSER_OPEN.get(), 1.0F, 1.0F);
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_DISPENSER_OPEN, 1.0F, 1.0F);
             this.setInMotion(false);
         }
 
@@ -56,7 +56,7 @@ public class DispenserEntity extends Monster implements IllagerAttack {
             if (this.spawnTicks > 60 && this.shooters.size() < 5) {
                 this.playSound(SoundEvents.DISPENSER_LAUNCH, 1.0F, 1.0F);
                 if (!this.level().isClientSide) {
-                    IllashooterEntity illashooter = ModEntityTypes.Illashooter.get().create(this.level());
+                    IllashooterEntity illashooter = ModEntityTypes.Illashooter.create(this.level());
 
                     assert illashooter != null;
 
@@ -106,7 +106,7 @@ public class DispenserEntity extends Monster implements IllagerAttack {
     }
 
     protected SoundEvent getDeathSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_DISPENSER_DESTROY.get();
+        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_DISPENSER_DESTROY;
     }
 
     public void die(DamageSource p_70645_1_) {

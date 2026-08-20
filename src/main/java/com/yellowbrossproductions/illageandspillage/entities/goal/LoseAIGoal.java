@@ -16,11 +16,11 @@ public class LoseAIGoal extends Goal {
     }
 
     public boolean canUse() {
-        return this.entity.hasEffect(EffectRegisterer.DISABILITY.get());
+        return this.entity.hasEffect(EffectRegisterer.DISABILITY);
     }
 
     public boolean canContinueToUse() {
-        return this.entity.hasEffect(EffectRegisterer.DISABILITY.get());
+        return this.entity.hasEffect(EffectRegisterer.DISABILITY);
     }
 
     public void tick() {

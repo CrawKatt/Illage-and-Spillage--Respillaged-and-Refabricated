@@ -80,7 +80,7 @@ public class IllagerSoulEntity extends Monster {
                 double motionX = this.getDeltaMovement().x - x / d * (double) power * 0.2;
                 double motionY = this.getDeltaMovement().y - y / d * (double) power * 0.2;
                 double motionZ = this.getDeltaMovement().z - z / d * (double) power * 0.2;
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_SOULSCREAM.get(), 3.0F, this.getVoicePitch());
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_SOULSCREAM, 3.0F, this.getVoicePitch());
                 CameraShakeEntity.cameraShake(this.level(), this.position(), 30.0F, 0.01F, 0, 30);
                 this.setTargetPosition(entity.getX(), entity.getY(), entity.getZ());
                 this.setCharge(motionX, motionY, motionZ);

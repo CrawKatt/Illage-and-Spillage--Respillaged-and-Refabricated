@@ -82,8 +82,8 @@ public class ImpEntity extends Mob implements IllagerAttack {
         this.setInvulnerable(true);
         if (this.tickCount == 1 + this.getWaitTime()) {
             this.setInvisible(false);
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_BLOCKALERT.get(), 2.0F, 1.0F);
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_EARTHRUMBLE.get(), 2.0F, 1.0F);
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_BLOCKALERT, 2.0F, 1.0F);
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_EARTHRUMBLE, 2.0F, 1.0F);
         }
 
         if (this.tickCount >= 46 + this.getWaitTime() && this.getStage() == 1) {
@@ -113,7 +113,7 @@ public class ImpEntity extends Mob implements IllagerAttack {
                     this.setStage(3);
                 }
 
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_IMPLAUGH.get(), 2.0F, this.getVoicePitch());
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_IMPLAUGH, 2.0F, this.getVoicePitch());
             } else if (!this.level().isClientSide) {
                 this.setStage(5);
             }

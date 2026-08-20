@@ -1009,7 +1009,7 @@ public class SpiritcallerEntity extends AbstractIllager {
     }
 
     public boolean canStolenMobBeAttacked(LivingEntity entity, LivingEntity attacker) {
-        if (Config.CommonConfig.spiritcaller_wontAttack.get().contains(entity.getEncodeId())) {
+        if (Config.CommonConfig.spiritcaller_wontAttack.get().contains(EntityType.getKey(entity.getType()).toString())) {
             return false;
         } else if (entity.getTeam() != null) {
             return entity.getTeam().isAllowFriendlyFire();
@@ -1383,7 +1383,7 @@ public class SpiritcallerEntity extends AbstractIllager {
     }
 
     public boolean areStealableMobsNearby() {
-        List<Mob> list = this.level().getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(15.0), (predicate) -> Config.CommonConfig.spiritcaller_stealableMobs.get().contains(predicate.getEncodeId()) && !predicate.isInvulnerable() && predicate != this);
+        List<Mob> list = this.level().getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(15.0), (predicate) -> Config.CommonConfig.spiritcaller_stealableMobs.get().contains(EntityType.getKey(predicate.getType()).toString()) && !predicate.isInvulnerable() && predicate != this);
         return !list.isEmpty();
     }
 
@@ -1392,7 +1392,7 @@ public class SpiritcallerEntity extends AbstractIllager {
     }
 
     public boolean areStolenMobsNearby() {
-        List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(100.0), (predicate) -> Config.CommonConfig.spiritcaller_stealableMobs.get().contains(predicate.getEncodeId()) && !predicate.isInvulnerable() && predicate.hasEffect(EffectRegisterer.DISABILITY));
+        List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(100.0), (predicate) -> Config.CommonConfig.spiritcaller_stealableMobs.get().contains(EntityType.getKey(predicate.getType()).toString()) && !predicate.isInvulnerable() && predicate.hasEffect(EffectRegisterer.DISABILITY));
         return !list.isEmpty();
     }
 
@@ -1478,7 +1478,7 @@ public class SpiritcallerEntity extends AbstractIllager {
             EntityUtil.mobFollowingSound(level(), SpiritcallerEntity.this, IllageAndSpillageSoundEvents.ENTITY_SPIRITCALLER_STEALSPIRITS, 2.0F, 1.0F, false);
             SpiritcallerEntity.this.setArmsUpward(true);
             SpiritcallerEntity.this.attackType = SpiritcallerEntity.this.SPIRIT_STEAL;
-            List<Mob> stealingMobs = SpiritcallerEntity.this.level().getEntitiesOfClass(Mob.class, SpiritcallerEntity.this.getBoundingBox().inflate(15.0), (predicate) -> Config.CommonConfig.spiritcaller_stealableMobs.get().contains(predicate.getEncodeId()) && !predicate.isInvulnerable() && predicate != SpiritcallerEntity.this);
+            List<Mob> stealingMobs = SpiritcallerEntity.this.level().getEntitiesOfClass(Mob.class, SpiritcallerEntity.this.getBoundingBox().inflate(15.0), (predicate) -> Config.CommonConfig.spiritcaller_stealableMobs.get().contains(EntityType.getKey(predicate.getType()).toString()) && !predicate.isInvulnerable() && predicate != SpiritcallerEntity.this);
             if (!stealingMobs.isEmpty()) {
                 for (int i = 0; i < stealingMobs.size(); ++i) {
                     LivingEntity mob = stealingMobs.get(i);

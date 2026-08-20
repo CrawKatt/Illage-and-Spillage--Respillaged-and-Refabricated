@@ -56,10 +56,10 @@ public class BossMusicSound extends AbstractTickableSoundInstance {
             }
         }
 
-        if (boss instanceof RagnoEntity && soundEvent == IllageAndSpillageSoundEvents.ENTITY_RAGNO_TRANS.get() && this.ticksExisted >= 518) {
+        if (boss instanceof RagnoEntity && soundEvent == IllageAndSpillageSoundEvents.ENTITY_RAGNO_TRANS && this.ticksExisted >= 518) {
             shouldChangeMusic = true;
             return;
-        } else if (boss instanceof OldRagnoEntity && soundEvent == IllageAndSpillageSoundEvents.ENTITY_RAGNO_TRANS.get() && this.ticksExisted >= 518) {
+        } else if (boss instanceof OldRagnoEntity && soundEvent == IllageAndSpillageSoundEvents.ENTITY_RAGNO_TRANS && this.ticksExisted >= 518) {
             shouldChangeMusic = true;
             return;
         }

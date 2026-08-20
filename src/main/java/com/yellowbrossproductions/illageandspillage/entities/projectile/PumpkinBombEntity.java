@@ -85,7 +85,7 @@ public class PumpkinBombEntity extends PathfinderMob implements IllagerAttack {
             if (this.getTarget() != null) {
                 this.getLookControl().setLookAt(this.getTarget(), 30.0F, 30.0F);
                 if (this.jumpTicks % 20 == 0 && this.onGround()) {
-                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_PUMPKINBOMB_BOING.get(), 1.0F, 1.0F);
+                    this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_PUMPKINBOMB_BOING, 1.0F, 1.0F);
                     if (!this.level().isClientSide) {
                         this.setDeltaMovement((this.getTarget().getX() - this.getX()) * 0.4 * 0.16, 0.5, (this.getTarget().getZ() - this.getZ()) * 0.4 * 0.16);
                     }
@@ -118,7 +118,7 @@ public class PumpkinBombEntity extends PathfinderMob implements IllagerAttack {
     }
 
     private void explode() {
-        this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_PUMPKINBOMB_EXPLODE.get(), 3.0F, 1.0F);
+        this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_PUMPKINBOMB_EXPLODE, 3.0F, 1.0F);
         if (!this.level().isClientSide) {
             this.dead = true;
             this.level().explode(this.getOwner(), this.getX(), this.getY(), this.getZ(), 4.0F, Level.ExplosionInteraction.NONE);
@@ -129,7 +129,7 @@ public class PumpkinBombEntity extends PathfinderMob implements IllagerAttack {
                 cloud.setRadiusOnUse(-0.5F);
                 cloud.setWaitTime(10);
                 cloud.setRadiusPerTick(-cloud.getRadius() / (float) cloud.getDuration());
-                cloud.setPotion(PotionRegisterer.MUTATION.get());
+                cloud.setPotion(PotionRegisterer.MUTATION);
                 cloud.setOwner(this);
                 this.level().addFreshEntity(cloud);
             }

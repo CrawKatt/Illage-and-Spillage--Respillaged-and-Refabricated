@@ -27,7 +27,7 @@ public class BagOfHorrorsItemBase extends Item {
         if (randomSelection == 0) {
             for (int i = 0; i < 4; ++i) {
                 double throwSpeed = 0.7;
-                PumpkinBombEntity s1 = ModEntityTypes.PumpkinBomb.get().create(level);
+                PumpkinBombEntity s1 = ModEntityTypes.PumpkinBomb.create(level);
 
                 assert s1 != null;
 
@@ -55,7 +55,7 @@ public class BagOfHorrorsItemBase extends Item {
                 level.addFreshEntity(s1);
             }
         } else if (randomSelection == 1) {
-            ScytheEntity scythe = ModEntityTypes.Scythe.get().create(level);
+            ScytheEntity scythe = ModEntityTypes.Scythe.create(level);
 
             assert scythe != null;
 
@@ -67,7 +67,7 @@ public class BagOfHorrorsItemBase extends Item {
             int amount = 3;
 
             for (int i = 0; i < amount; ++i) {
-                TrickOrTreatEntity treat = ModEntityTypes.TrickOrTreat.get().create(level);
+                TrickOrTreatEntity treat = ModEntityTypes.TrickOrTreat.create(level);
 
                 assert treat != null;
 

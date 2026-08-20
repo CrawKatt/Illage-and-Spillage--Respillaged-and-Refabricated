@@ -46,13 +46,17 @@ public class PacketHandler {
     }
 
     public static void sendToTrackingAndSelf(Entity entity, MobFollowingSoundPacket packet) {
-        FriendlyByteBuf buf = PacketByteBufs.create();
-        MobFollowingSoundPacket.encode(packet, buf);
         for (ServerPlayer player : PlayerLookup.tracking(entity)) {
-            ServerPlayNetworking.send(player, MOB_FOLLOWING_SOUND_CHANNEL, buf);
+            sendToPlayer(player, packet);
         }
         if (entity instanceof ServerPlayer player) {
-            ServerPlayNetworking.send(player, MOB_FOLLOWING_SOUND_CHANNEL, buf);
+            sendToPlayer(player, packet);
         }
+    }
+
+    private static void sendToPlayer(ServerPlayer player, MobFollowingSoundPacket packet) {
+        FriendlyByteBuf buf = PacketByteBufs.create();
+        MobFollowingSoundPacket.encode(packet, buf);
+        ServerPlayNetworking.send(player, MOB_FOLLOWING_SOUND_CHANNEL, buf);
     }
 }

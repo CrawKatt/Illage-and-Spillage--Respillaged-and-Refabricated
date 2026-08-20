@@ -163,6 +163,6 @@ public class ModEntityTypes {
     }
 
     public static void init() {
-
+        onAttribute();
     }
 }

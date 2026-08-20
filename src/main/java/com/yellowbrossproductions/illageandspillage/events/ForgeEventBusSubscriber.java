@@ -34,13 +34,10 @@ import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.raid.Raid;
-import net.minecraft.world.entity.raid.Raid.RaiderType;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.List;
 
@@ -123,14 +120,14 @@ public class ForgeEventBusSubscriber {
     }
 
     private static void removeRaidMembers() {
-        Raid.RaiderType[] members = RaiderType.values();
-
-        for (RaiderType member : members) {
-            if (RaidWaveMembers.CUSTOM_RAID_MEMBERS.contains(member)) {
-                ArrayUtils.remove(members, member.ordinal());
-                IllageAndSpillage.LOGGER.info("Removed " + member.name() + " from Raids to prevent a post-mod-removal crash");
-            }
+        if (RaidWaveMembers.CUSTOM_RAID_MEMBERS.isEmpty()) {
+            return;
         }
+
+        for (RaidWaveMembers.RaidMember member : RaidWaveMembers.CUSTOM_RAID_MEMBERS) {
+            IllageAndSpillage.LOGGER.info("Removed " + member.entityType().getDescriptionId() + " from Raids to prevent a post-mod-removal crash");
+        }
+        RaidWaveMembers.CUSTOM_RAID_MEMBERS.clear();
     }
 
     private static void extinguishIllagers(LivingEntity entity, DamageSource reason) {
@@ -139,7 +136,7 @@ public class ForgeEventBusSubscriber {
         }
     }
 
-    private static InteractionResult misconductionAttack1(Player player, Level level, BlockHitResult hitResult) {
+    private static InteractionResult misconductionAttack1(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
         if (player.getMainHandItem() == ItemStack.EMPTY && hitResult.getDirection() == Direction.UP && player.hasEffect(EffectRegisterer.MISCONDUCTION)) {
             BlockPos blockpos = hitResult.getBlockPos();
             if (level.isClientSide) {

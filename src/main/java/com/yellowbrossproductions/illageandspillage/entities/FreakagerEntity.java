@@ -687,7 +687,7 @@ public class FreakagerEntity extends AbstractIllager implements ICanBeAnimated {
 
                             projectile = new AxeEntity(this.level(), this, -x, -y, -z);
                             projectile.moveTo(this.getX(), this.getY() + 1, this.getZ());
-                            CompoundTag tag = this.getPersistentData().getCompound("Rotation");
+                            CompoundTag tag = new CompoundTag();
                             projectile.readAdditionalSaveData(tag);
                             projectile.setYHeadRot(this.getYHeadRot());
                             projectile.setYRot(this.getYHeadRot());
@@ -742,7 +742,7 @@ public class FreakagerEntity extends AbstractIllager implements ICanBeAnimated {
 
                         projectile = new AxeEntity(this.level(), this, -x, -y, -z);
                         projectile.moveTo(vec3);
-                        CompoundTag tag = this.getPersistentData().getCompound("Rotation");
+                        CompoundTag tag = new CompoundTag();
                         projectile.readAdditionalSaveData(tag);
                         projectile.shoot(-x, -y, -z, 1.0F, 20.0F);
 

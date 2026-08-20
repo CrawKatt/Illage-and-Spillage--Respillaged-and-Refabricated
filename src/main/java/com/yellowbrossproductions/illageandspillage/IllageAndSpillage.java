@@ -6,11 +6,13 @@ import com.yellowbrossproductions.illageandspillage.events.NightmareEvents;
 import com.yellowbrossproductions.illageandspillage.init.ModEntityTypes;
 import com.yellowbrossproductions.illageandspillage.particle.ParticleRegisterer;
 import com.yellowbrossproductions.illageandspillage.util.*;
+import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.fml.config.ModConfig;
 import org.slf4j.Logger;
 
 public class IllageAndSpillage implements ModInitializer {
@@ -18,7 +20,6 @@ public class IllageAndSpillage implements ModInitializer {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public IllageAndSpillage() {
-        ItemRegisterer.init();
         ItemRegisterer.init();
         ModEntityTypes.init();
         EffectRegisterer.init();
@@ -50,8 +51,8 @@ public class IllageAndSpillage implements ModInitializer {
         SpawnPlacements.register(ModEntityTypes.OldRagno, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
         SpawnPlacements.register(ModEntityTypes.OldMagispeller, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
         SpawnPlacements.register(ModEntityTypes.Kaboomer, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-        //ModLoadingContext.registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
-        //ModLoadingContext.registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
+        ForgeConfigRegistry.INSTANCE.register(MOD_ID, ModConfig.Type.CLIENT, Config.clientSpec);
+        ForgeConfigRegistry.INSTANCE.register(MOD_ID, ModConfig.Type.COMMON, Config.commonSpec);
     }
 
     @Override

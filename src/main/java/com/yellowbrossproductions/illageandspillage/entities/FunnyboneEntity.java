@@ -289,7 +289,7 @@ public class FunnyboneEntity extends Monster implements ICanBeAnimated, IllagerA
 
                     BoneEntity projectile = new BoneEntity(this.level(), this, -x, -y, -z);
                     projectile.moveTo(this.getX(), this.getY() + 1, this.getZ());
-                    CompoundTag tag = this.getPersistentData().getCompound("Rotation");
+                    CompoundTag tag = new CompoundTag();
                     projectile.readAdditionalSaveData(tag);
 
                     projectile.isGoopy = this.isGoopy();

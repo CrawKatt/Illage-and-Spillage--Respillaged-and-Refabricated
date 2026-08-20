@@ -56,7 +56,6 @@ import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.entity.raid.Raider;
-import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -1995,10 +1994,6 @@ public class MagispellerEntity extends AbstractIllager implements ICanBeAnimated
 
     public void fireArrow(LivingEntity p_82196_1_, float p_82196_2_, float inaccuracy) {
         AbstractArrow abstractarrowentity = this.getArrow(Items.BOW.getDefaultInstance(), p_82196_2_);
-        if (this.getMainHandItem().getItem() instanceof BowItem) {
-            abstractarrowentity = ((BowItem) this.getMainHandItem().getItem()).customArrow(abstractarrowentity);
-        }
-
         double d0 = p_82196_1_.getX() - this.getX();
         double d1 = p_82196_1_.getY(0.3333333333333333) - abstractarrowentity.getY() - (double) p_82196_1_.getBbHeight() / 2.0;
         double d2 = p_82196_1_.getZ() - this.getZ();

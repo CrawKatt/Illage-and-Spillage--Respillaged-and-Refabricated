@@ -57,13 +57,13 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityAc
         this.entityData.define(PRESERVED, false);
     }
 
-    @Inject(method = "tick", at = @At("TAIL"))
+    @Inject(method = "tick", at = @At("HEAD"))
     public void onLivingTick(CallbackInfo ci) {
         LivingTickCallback.EVENT.invoker().onLivingTick((LivingEntity) (Object) this);
     }
 
-    @ModifyVariable(method = "hurt", at = @At("HEAD"), argsOnly = true, ordinal = 0)
-    public float onHurtDamage(float amount, DamageSource source, float originalAmount) {
+    @ModifyVariable(method = "actuallyHurt", at = @At("HEAD"), argsOnly = true, ordinal = 0)
+    public float onHurtDamage(float amount, DamageSource source) {
         LivingHurtCallback.Event event = new LivingHurtCallback.Event((LivingEntity) (Object) this, source, amount);
         LivingHurtCallback.EVENT.invoker().onLivingHurt(event);
         return event.getAmount();

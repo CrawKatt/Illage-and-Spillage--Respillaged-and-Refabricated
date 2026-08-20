@@ -140,7 +140,7 @@ public class EntityUtil {
 
     public static void mobFollowingSound(Level level, Entity entity, SoundEvent sound, float volume, float pitch, boolean loop) {
         if (!level.isClientSide) {
-            PacketHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), new MobFollowingSoundPacket(entity.getId(), sound, volume, pitch, loop));
+            PacketHandler.sendToTrackingAndSelf(entity, new MobFollowingSoundPacket(entity.getId(), sound, volume, pitch, loop));
         }
     }
 

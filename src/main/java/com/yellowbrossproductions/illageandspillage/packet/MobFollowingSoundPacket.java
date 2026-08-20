@@ -35,7 +35,7 @@ public class MobFollowingSoundPacket {
     }
 
     public static MobFollowingSoundPacket decode(FriendlyByteBuf buf) {
-        return new MobFollowingSoundPacket(buf.readInt(), BuiltInRegistries.SOUND_EVENT.getValue(buf.readResourceLocation()), buf.readFloat(), buf.readFloat(), buf.readBoolean());
+        return new MobFollowingSoundPacket(buf.readInt(), BuiltInRegistries.SOUND_EVENT.get(buf.readResourceLocation()), buf.readFloat(), buf.readFloat(), buf.readBoolean());
     }
 
     public static class Handler {

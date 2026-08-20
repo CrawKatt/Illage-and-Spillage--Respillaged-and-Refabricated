@@ -55,11 +55,11 @@ public class SkullBombEntity extends PathfinderMob implements IllagerAttack {
 
         super.tick();
         if (this.tickCount == 1) {
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_SHIVER.get(), 1.0F, 1.0F);
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_SHIVER, 1.0F, 1.0F);
         }
 
         if (this.tickCount == 33) {
-            this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_SKULLBOMB_EXPLODE.get(), 3.0F, 1.0F);
+            this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_SKULLBOMB_EXPLODE, 3.0F, 1.0F);
         }
 
         if (this.tickCount >= 40) {
@@ -82,7 +82,7 @@ public class SkullBombEntity extends PathfinderMob implements IllagerAttack {
             this.dead = true;
             this.level().explode(this.getOwner(), this.getX(), this.getY(), this.getZ(), f, Level.ExplosionInteraction.NONE);
             if (!this.isSmall()) {
-                SkullBombEntity s1 = ModEntityTypes.SkullBomb.get().create(this.level());
+                SkullBombEntity s1 = ModEntityTypes.SkullBomb.create(this.level());
 
                 assert s1 != null;
 
@@ -91,7 +91,7 @@ public class SkullBombEntity extends PathfinderMob implements IllagerAttack {
                 s1.setDeltaMovement(-0.3, 0.3, -0.3);
                 s1.setOwner(this.getOwner());
                 this.level().addFreshEntity(s1);
-                SkullBombEntity s2 = ModEntityTypes.SkullBomb.get().create(this.level());
+                SkullBombEntity s2 = ModEntityTypes.SkullBomb.create(this.level());
 
                 assert s2 != null;
 
@@ -100,7 +100,7 @@ public class SkullBombEntity extends PathfinderMob implements IllagerAttack {
                 s2.setDeltaMovement(-0.3, 0.3, 0.3);
                 s1.setOwner(this.getOwner());
                 this.level().addFreshEntity(s2);
-                SkullBombEntity s3 = ModEntityTypes.SkullBomb.get().create(this.level());
+                SkullBombEntity s3 = ModEntityTypes.SkullBomb.create(this.level());
 
                 assert s3 != null;
 
@@ -109,7 +109,7 @@ public class SkullBombEntity extends PathfinderMob implements IllagerAttack {
                 s3.setDeltaMovement(0.3, 0.3, -0.3);
                 s1.setOwner(this.getOwner());
                 this.level().addFreshEntity(s3);
-                SkullBombEntity s4 = ModEntityTypes.SkullBomb.get().create(this.level());
+                SkullBombEntity s4 = ModEntityTypes.SkullBomb.create(this.level());
 
                 assert s4 != null;
 
