@@ -20,7 +20,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.HitResult.Type;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,9 +88,11 @@ public class SoulBeamEntity extends Entity {
     protected void addAdditionalSaveData(CompoundTag p_20139_) {
     }
 
+    /*
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
+    */
 
     public PushReaction getPistonPushReaction() {
         return PushReaction.IGNORE;

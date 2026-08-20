@@ -53,7 +53,6 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fluids.FluidType;
 
 import java.util.*;
 
@@ -227,9 +226,11 @@ public class OldRagnoEntity extends Raider implements ICanBeAnimated {
         this.bossEvent.setName(this.getDisplayName());
     }
 
+    /*
     public boolean canBeRiddenUnderFluidType(FluidType type, Entity rider) {
         return true;
     }
+    */
 
     public void applyRaidBuffs(int p_213660_1_, boolean p_213660_2_) {
     }

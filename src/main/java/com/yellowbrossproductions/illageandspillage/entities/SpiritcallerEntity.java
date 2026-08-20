@@ -51,7 +51,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
@@ -337,7 +336,7 @@ public class SpiritcallerEntity extends AbstractIllager {
                 }
 
                 ServerPlayer finalServerPlayer = serverPlayer;
-                PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> finalServerPlayer), packet);
+                PacketHandler.sendToPlayer(finalServerPlayer, packet);
             }
         }
     }
@@ -370,7 +369,7 @@ public class SpiritcallerEntity extends AbstractIllager {
 
         this.updateMobList();
         List<Raider> list = this.level().getEntitiesOfClass(Raider.class, this.getBoundingBox().inflate(100.0), (predicate) -> predicate.hasActiveRaid() && !predicate.getType().is(ModTags.EntityTypes.ILLAGER_BOSSES));
-        if (Config.CommonConfig.spiritcaller_forcefield && this.hasActiveRaid()) {
+        if (Config.CommonConfig.spiritcaller_forcefield.get() && this.hasActiveRaid()) {
             if (!this.level().isClientSide) {
                 this.setIllagersNearby(!list.isEmpty());
             }
@@ -1347,7 +1346,7 @@ public class SpiritcallerEntity extends AbstractIllager {
     }
 
     public boolean isPersistenceRequired() {
-        return !Config.CommonConfig.ULTIMATE_NIGHTMARE;
+        return !Config.CommonConfig.ULTIMATE_NIGHTMARE.get();
     }
 
     @Nullable
@@ -1384,7 +1383,7 @@ public class SpiritcallerEntity extends AbstractIllager {
     }
 
     public boolean areStealableMobsNearby() {
-        List<Mob> list = this.level().getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(15.0), (predicate) -> Config.CommonConfig.spiritcaller_stealableMobs.contains(predicate.getEncodeId()) && !predicate.isInvulnerable() && predicate != this);
+        List<Mob> list = this.level().getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(15.0), (predicate) -> Config.CommonConfig.spiritcaller_stealableMobs.get().contains(predicate.getEncodeId()) && !predicate.isInvulnerable() && predicate != this);
         return !list.isEmpty();
     }
 
