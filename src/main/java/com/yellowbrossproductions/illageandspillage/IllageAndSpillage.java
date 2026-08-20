@@ -1,6 +1,8 @@
 package com.yellowbrossproductions.illageandspillage;
 
 import com.mojang.logging.LogUtils;
+import com.yellowbrossproductions.illageandspillage.events.ForgeEventBusSubscriber;
+import com.yellowbrossproductions.illageandspillage.events.NightmareEvents;
 import com.yellowbrossproductions.illageandspillage.init.ModEntityTypes;
 import com.yellowbrossproductions.illageandspillage.particle.ParticleRegisterer;
 import com.yellowbrossproductions.illageandspillage.util.*;
@@ -24,6 +26,8 @@ public class IllageAndSpillage implements ModInitializer {
         PotionRegisterer.init();
         ParticleRegisterer.init();
         CreativeTabRegisterer.init();
+        ForgeEventBusSubscriber.init();
+        NightmareEvents.init();
 
         SpawnPlacements.register(ModEntityTypes.Igniter, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
         SpawnPlacements.register(ModEntityTypes.Magispeller, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);

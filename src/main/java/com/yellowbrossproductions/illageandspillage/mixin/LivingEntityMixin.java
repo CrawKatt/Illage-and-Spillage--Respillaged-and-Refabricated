@@ -2,9 +2,12 @@ package com.yellowbrossproductions.illageandspillage.mixin;
 
 import com.yellowbrossproductions.illageandspillage.access.LivingEntityAccess;
 import com.yellowbrossproductions.illageandspillage.entities.*;
+import com.yellowbrossproductions.illageandspillage.event.custom.LivingHurtCallback;
+import com.yellowbrossproductions.illageandspillage.event.custom.LivingTickCallback;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,6 +16,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -51,6 +55,18 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityAc
     public void defineSynchedData(CallbackInfo ci) {
         this.entityData.define(WEBBED, false);
         this.entityData.define(PRESERVED, false);
+    }
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    public void onLivingTick(CallbackInfo ci) {
+        LivingTickCallback.EVENT.invoker().onLivingTick((LivingEntity) (Object) this);
+    }
+
+    @ModifyVariable(method = "hurt", at = @At("HEAD"), argsOnly = true, ordinal = 0)
+    public float onHurtDamage(float amount, DamageSource source, float originalAmount) {
+        LivingHurtCallback.Event event = new LivingHurtCallback.Event((LivingEntity) (Object) this, source, amount);
+        LivingHurtCallback.EVENT.invoker().onLivingHurt(event);
+        return event.getAmount();
     }
 
     @Inject(method = "canAttack*", at = @At("HEAD"), cancellable = true)

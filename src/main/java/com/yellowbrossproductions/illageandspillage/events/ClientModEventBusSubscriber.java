@@ -12,155 +12,141 @@ import com.yellowbrossproductions.illageandspillage.particle.custom.BloodParticl
 import com.yellowbrossproductions.illageandspillage.particle.custom.MutationDripParticles;
 import com.yellowbrossproductions.illageandspillage.particle.custom.MutationParticles;
 import com.yellowbrossproductions.illageandspillage.particle.custom.MutationParticles2;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@OnlyIn(Dist.CLIENT)
-@EventBusSubscriber(modid = "illageandspillage", bus = Bus.MOD, value = Dist.CLIENT)
 public class ClientModEventBusSubscriber {
-    @SubscribeEvent
-    public static void registerEntityRenders(EntityRenderersEvent.AddLayers event) {
-        event.getContext().getEntityRenderDispatcher().getSkinMap().forEach((model, renderer) -> {
-            RenderLayerParent<Player, EntityModel<Player>> layerParent = (RenderLayerParent<Player, EntityModel<Player>>) event.getSkin(model);
-            if (layerParent != null) {
-                ((LivingEntityRenderer<Player, EntityModel<Player>>) renderer).addLayer(new WebbedLayer<>(layerParent));
-                ((LivingEntityRenderer<Player, EntityModel<Player>>) renderer).addLayer(new HayArmorLayer<>(layerParent));
-            }
-        });
+    public static void initClient() {
+        registerEntityRenders();
+        registerGuiOverlays();
+        registerParticleFactories();
+        registerLayers();
+        onClientSetup();
+    }
 
-        Minecraft.getInstance().getEntityRenderDispatcher().renderers.values().forEach(r -> {
-            if (r instanceof LivingEntityRenderer) {
-                ((LivingEntityRenderer<?, ?>) r).addLayer(new WebbedLayer<>((RenderLayerParent<?, ?>) r));
-                ((LivingEntityRenderer<?, ?>) r).addLayer(new HayArmorLayer<>((RenderLayerParent<?, ?>) r));
-            }
+    private static void registerEntityRenders() {
+        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
+            registrationHelper.register(new WebbedLayer<>(entityRenderer));
+            registrationHelper.register(new HayArmorLayer<>(entityRenderer));
         });
     }
 
-    @SubscribeEvent
-    public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-        event.registerBelowAll("webbed", WebbedOverlay.WEBBED_OVERLAY);
-        event.registerAbove(VanillaGuiOverlay.PORTAL.id(), "jumpscare", (forgeGui, guiGraphics, partialTicks, screenWidth, screenHeight) -> JumpscareOverlay.JUMPSCARE_OVERLAY.render(guiGraphics, partialTicks, screenWidth, screenHeight));
+    private static void registerGuiOverlays() {
+        HudRenderCallback.EVENT.register((guiGraphics, tickDelta) -> {
+            int screenWidth = guiGraphics.guiWidth();
+            int screenHeight = guiGraphics.guiHeight();
+            WebbedOverlay.renderWebbed(guiGraphics, tickDelta, screenWidth, screenHeight);
+            JumpscareOverlay.JUMPSCARE_OVERLAY.render(guiGraphics, tickDelta, screenWidth, screenHeight);
+        });
     }
 
-    @SubscribeEvent
-    public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
-        Minecraft.getInstance().particleEngine.register(ParticleRegisterer.MUTATION_PARTICLES, MutationParticles.Provider::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegisterer.MUTATION_PARTICLES2, MutationParticles2.Provider::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegisterer.MUTATION_DRIP_PARTICLES, MutationDripParticles.Provider::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegisterer.BLOOD_PARTICLES, BloodParticles.Provider::new);
+    private static void registerParticleFactories() {
+        ParticleFactoryRegistry.getInstance().register(ParticleRegisterer.MUTATION_PARTICLES, MutationParticles.Provider::new);
+        ParticleFactoryRegistry.getInstance().register(ParticleRegisterer.MUTATION_PARTICLES2, MutationParticles2.Provider::new);
+        ParticleFactoryRegistry.getInstance().register(ParticleRegisterer.MUTATION_DRIP_PARTICLES, MutationDripParticles.Provider::new);
+        ParticleFactoryRegistry.getInstance().register(ParticleRegisterer.BLOOD_PARTICLES, BloodParticles.Provider::new);
     }
 
-    @SubscribeEvent
-    public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(IgniterModel.LAYER_LOCATION, IgniterModel::createBodyLayer);
-        event.registerLayerDefinition(EngineerModel.LAYER_LOCATION, EngineerModel::createBodyLayer);
-        event.registerLayerDefinition(ChagrinSentryModel.LAYER_LOCATION, ChagrinSentryModel::createBodyLayer);
-        event.registerLayerDefinition(HinderModel.LAYER_LOCATION, HinderModel::createBodyLayer);
-        event.registerLayerDefinition(FactoryModel.LAYER_LOCATION, FactoryModel::createBodyLayer);
-        event.registerLayerDefinition(BeeperModel.LAYER_LOCATION, BeeperModel::createBodyLayer);
-        event.registerLayerDefinition(SniperModel.LAYER_LOCATION, SniperModel::createBodyLayer);
-        event.registerLayerDefinition(PokerModel.LAYER_LOCATION, PokerModel::createBodyLayer);
-        event.registerLayerDefinition(MagispellerModel.LAYER_LOCATION, MagispellerModel::createBodyLayer);
-        event.registerLayerDefinition(FakerModel.LAYER_LOCATION, FakerModel::createBodyLayer);
-        event.registerLayerDefinition(DispenserModel.LAYER_LOCATION, DispenserModel::createBodyLayer);
-        event.registerLayerDefinition(IllashooterModel.LAYER_LOCATION, IllashooterModel::createBodyLayer);
-        event.registerLayerDefinition(CrashagerModel.LAYER_LOCATION, CrashagerModel::createBodyLayer);
-        event.registerLayerDefinition(BossRandomizerModel.LAYER_LOCATION, BossRandomizerModel::createBodyLayer);
-        event.registerLayerDefinition(TwittollagerModel.LAYER_LOCATION, TwittollagerModel::createBodyLayer);
-        event.registerLayerDefinition(SpiritcallerModel.LAYER_LOCATION, SpiritcallerModel::createBodyLayer);
-        event.registerLayerDefinition(MobSpiritModel.LAYER_LOCATION, MobSpiritModel::createBodyLayer);
-        event.registerLayerDefinition(IllagerSoulModel.LAYER_LOCATION, IllagerSoulModel::createBodyLayer);
-        event.registerLayerDefinition(ImpModel.LAYER_LOCATION, ImpModel::createBodyLayer);
-        event.registerLayerDefinition(SpiritHandModel.LAYER_LOCATION, SpiritHandModel::createBodyLayer);
-        event.registerLayerDefinition(CrocofangModel.LAYER_LOCATION, CrocofangModel::createBodyLayer);
-//        event.registerLayerDefinition(DevastatorModel.LAYER_LOCATION, DevastatorModel::createBodyLayer);
-        event.registerLayerDefinition(AbsorberModel.LAYER_LOCATION, AbsorberModel::createBodyLayer);
-        event.registerLayerDefinition(PreserverModel.LAYER_LOCATION, PreserverModel::createBodyLayer);
-        event.registerLayerDefinition(HayArmorModel.LAYER_LOCATION, HayArmorModel::createBodyLayer);
-        event.registerLayerDefinition(FreakagerModel.LAYER_LOCATION, FreakagerModel::createBodyLayer);
-        event.registerLayerDefinition(RagnoModel.LAYER_LOCATION, RagnoModel::createBodyLayer);
-        event.registerLayerDefinition(EyesoreModel.LAYER_LOCATION, EyesoreModel::createBodyLayer);
-        event.registerLayerDefinition(FunnyboneModel.LAYER_LOCATION, FunnyboneModel::createBodyLayer);
-        event.registerLayerDefinition(BoneModel.LAYER_LOCATION, BoneModel::createBodyLayer);
-        event.registerLayerDefinition(SkullBombModel.LAYER_LOCATION, SkullBombModel::createBodyLayer);
-        event.registerLayerDefinition(OldFreakagerModel.LAYER_LOCATION, OldFreakagerModel::createBodyLayer);
-        event.registerLayerDefinition(OldRagnoModel.LAYER_LOCATION, OldRagnoModel::createBodyLayer);
-        event.registerLayerDefinition(OldMagispellerModel.LAYER_LOCATION, OldMagispellerModel::createBodyLayer);
-        event.registerLayerDefinition(MagiHealModel.LAYER_LOCATION, MagiHealModel::createBodyLayer);
-        event.registerLayerDefinition(KaboomerModel.LAYER_LOCATION, KaboomerModel::createBodyLayer);
-        event.registerLayerDefinition(PumpkinBombModel.LAYER_LOCATION, PumpkinBombModel::createBodyLayer);
-        event.registerLayerDefinition(AxeModel.LAYER_LOCATION, AxeModel::createBodyLayer);
-        event.registerLayerDefinition(ScytheModel.LAYER_LOCATION, ScytheModel::createBodyLayer);
-        event.registerLayerDefinition(OldScytheModel.LAYER_LOCATION, OldScytheModel::createBodyLayer);
-        event.registerLayerDefinition(TrickOrTreatModel.LAYER_LOCATION, TrickOrTreatModel::createBodyLayer);
-        event.registerLayerDefinition(WebNetModel.LAYER_LOCATION, WebNetModel::createBodyLayer);
-        event.registerLayerDefinition(VillagerSoulModel.LAYER_LOCATION, VillagerSoulModel::createBodyLayer);
+    private static void registerLayers() {
+        EntityModelLayerRegistry.registerModelLayer(IgniterModel.LAYER_LOCATION, IgniterModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(EngineerModel.LAYER_LOCATION, EngineerModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(ChagrinSentryModel.LAYER_LOCATION, ChagrinSentryModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(HinderModel.LAYER_LOCATION, HinderModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(FactoryModel.LAYER_LOCATION, FactoryModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(BeeperModel.LAYER_LOCATION, BeeperModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(SniperModel.LAYER_LOCATION, SniperModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(PokerModel.LAYER_LOCATION, PokerModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(MagispellerModel.LAYER_LOCATION, MagispellerModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(FakerModel.LAYER_LOCATION, FakerModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(DispenserModel.LAYER_LOCATION, DispenserModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(IllashooterModel.LAYER_LOCATION, IllashooterModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(CrashagerModel.LAYER_LOCATION, CrashagerModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(BossRandomizerModel.LAYER_LOCATION, BossRandomizerModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(TwittollagerModel.LAYER_LOCATION, TwittollagerModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(SpiritcallerModel.LAYER_LOCATION, SpiritcallerModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(MobSpiritModel.LAYER_LOCATION, MobSpiritModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(IllagerSoulModel.LAYER_LOCATION, IllagerSoulModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(ImpModel.LAYER_LOCATION, ImpModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(SpiritHandModel.LAYER_LOCATION, SpiritHandModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(CrocofangModel.LAYER_LOCATION, CrocofangModel::createBodyLayer);
+//        EntityModelLayerRegistry.registerModelLayer(DevastatorModel.LAYER_LOCATION, DevastatorModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(AbsorberModel.LAYER_LOCATION, AbsorberModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(PreserverModel.LAYER_LOCATION, PreserverModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(HayArmorModel.LAYER_LOCATION, HayArmorModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(FreakagerModel.LAYER_LOCATION, FreakagerModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(RagnoModel.LAYER_LOCATION, RagnoModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(EyesoreModel.LAYER_LOCATION, EyesoreModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(FunnyboneModel.LAYER_LOCATION, FunnyboneModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(BoneModel.LAYER_LOCATION, BoneModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(SkullBombModel.LAYER_LOCATION, SkullBombModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(OldFreakagerModel.LAYER_LOCATION, OldFreakagerModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(OldRagnoModel.LAYER_LOCATION, OldRagnoModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(OldMagispellerModel.LAYER_LOCATION, OldMagispellerModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(MagiHealModel.LAYER_LOCATION, MagiHealModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(KaboomerModel.LAYER_LOCATION, KaboomerModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(PumpkinBombModel.LAYER_LOCATION, PumpkinBombModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(AxeModel.LAYER_LOCATION, AxeModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(ScytheModel.LAYER_LOCATION, ScytheModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(OldScytheModel.LAYER_LOCATION, OldScytheModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(TrickOrTreatModel.LAYER_LOCATION, TrickOrTreatModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(WebNetModel.LAYER_LOCATION, WebNetModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(VillagerSoulModel.LAYER_LOCATION, VillagerSoulModel::createBodyLayer);
     }
 
-    @SubscribeEvent
-    public static void onClientSetup(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModEntityTypes.Igniter.get(), IgniterRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Engineer.get(), EngineerRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.ChagrinSentry.get(), ChagrinSentryRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Hinder.get(), HinderRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Factory.get(), FactoryRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Beeper.get(), BeeperRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Sniper.get(), SniperRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Poker.get(), PokerRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Magispeller.get(), MagispellerRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Faker.get(), FakeMagispellerRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Dispenser.get(), DispenserRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Illashooter.get(), IllashooterRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Crashager.get(), CrashagerRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.BossRandomizer.get(), BossRandomizerRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Twittollager.get(), TwittollagerRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Spiritcaller.get(), SpiritcallerRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.MobSpirit.get(), MobSpiritRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.IllagerSoul.get(), IllagerSoulRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Imp.get(), ImpRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.SpiritHand.get(), SpiritHandRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.SoulBeam.get(), SoulBeamRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Crocofang.get(), CrocofangRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.IgniterFireball.get(), (p_174064_) -> new ThrownItemRenderer<>(p_174064_, 0.75F, true));
-        event.registerEntityRenderer(ModEntityTypes.CameraShake.get(), NothingRenderer::new);
-//        event.registerEntityRenderer(ModEntityTypes.Devastator.get(), DevastatorRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Absorber.get(), AbsorberRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Preserver.get(), PreserverRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Freakager.get(), FreakagerRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Ragno.get(), RagnoRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Eyesore.get(), EyesoreRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Funnybone.get(), FunnyboneRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Bone.get(), BoneRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.SkullBomb.get(), SkullBombRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.OldFreakager.get(), OldFreakagerRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.OldRagno.get(), OldRagnoRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.OldMagispeller.get(), OldMagispellerRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.MagiFireball.get(), MagiFireballRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.MagiArrow.get(), MagiArrowRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.MagiHeal.get(), MagiHealRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Kaboomer.get(), KaboomerRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.PumpkinBomb.get(), PumpkinBombRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Axe.get(), AxeRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.OldAxe.get(), OldAxeRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.DarkPotion.get(), (p_174064_) -> new ThrownItemRenderer<>(p_174064_, 0.75F, true));
-        event.registerEntityRenderer(ModEntityTypes.Scythe.get(), ScytheRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.OldScythe.get(), OldScytheRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.TrickOrTreat.get(), TrickOrTreatRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.Web.get(), (p_174064_) -> new ThrownItemRenderer<>(p_174064_, 1.5F, true));
-        event.registerEntityRenderer(ModEntityTypes.WebNet.get(), WebNetRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.VillagerSoul.get(), VillagerSoulRenderer::new);
+    private static void onClientSetup() {
+        EntityRendererRegistry.register(ModEntityTypes.Igniter, IgniterRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Engineer, EngineerRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.ChagrinSentry, ChagrinSentryRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Hinder, HinderRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Factory, FactoryRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Beeper, BeeperRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Sniper, SniperRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Poker, PokerRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Magispeller, MagispellerRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Faker, FakeMagispellerRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Dispenser, DispenserRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Illashooter, IllashooterRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Crashager, CrashagerRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.BossRandomizer, BossRandomizerRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Twittollager, TwittollagerRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Spiritcaller, SpiritcallerRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.MobSpirit, MobSpiritRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.IllagerSoul, IllagerSoulRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Imp, ImpRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.SpiritHand, SpiritHandRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.SoulBeam, SoulBeamRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Crocofang, CrocofangRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.IgniterFireball, (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
+        EntityRendererRegistry.register(ModEntityTypes.CameraShake, NothingRenderer::new);
+//        EntityRendererRegistry.register(ModEntityTypes.Devastator, DevastatorRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Absorber, AbsorberRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Preserver, PreserverRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Freakager, FreakagerRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Ragno, RagnoRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Eyesore, EyesoreRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Funnybone, FunnyboneRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Bone, BoneRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.SkullBomb, SkullBombRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.OldFreakager, OldFreakagerRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.OldRagno, OldRagnoRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.OldMagispeller, OldMagispellerRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.MagiFireball, MagiFireballRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.MagiArrow, MagiArrowRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.MagiHeal, MagiHealRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Kaboomer, KaboomerRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.PumpkinBomb, PumpkinBombRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Axe, AxeRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.OldAxe, OldAxeRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.DarkPotion, (context) -> new ThrownItemRenderer<>(context, 0.75F, true));
+        EntityRendererRegistry.register(ModEntityTypes.Scythe, ScytheRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.OldScythe, OldScytheRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.TrickOrTreat, TrickOrTreatRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.Web, (context) -> new ThrownItemRenderer<>(context, 1.5F, true));
+        EntityRendererRegistry.register(ModEntityTypes.WebNet, WebNetRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.VillagerSoul, VillagerSoulRenderer::new);
     }
 }

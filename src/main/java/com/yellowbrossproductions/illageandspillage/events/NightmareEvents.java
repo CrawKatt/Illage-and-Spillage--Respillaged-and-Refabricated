@@ -1,8 +1,12 @@
 package com.yellowbrossproductions.illageandspillage.events;
 
 import com.yellowbrossproductions.illageandspillage.Config;
+import com.yellowbrossproductions.illageandspillage.IllageAndSpillage;
 import com.yellowbrossproductions.illageandspillage.entities.*;
+import com.yellowbrossproductions.illageandspillage.event.custom.LivingHurtCallback;
+import com.yellowbrossproductions.illageandspillage.event.custom.LivingTickCallback;
 import com.yellowbrossproductions.illageandspillage.init.ModEntityTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
@@ -10,19 +14,17 @@ import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
 
-@Mod.EventBusSubscriber(modid = "illageandspillage", bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class NightmareEvents {
 //    private static float previousYaw;
 //    private static float previousPitch;
 
-    @SubscribeEvent
-    public static void onHurt(LivingHurtEvent event) {
+    public static void init() {
+        LivingHurtCallback.EVENT.register(NightmareEvents::onHurt);
+        LivingTickCallback.EVENT.register(NightmareEvents::onLivingTick);
+    }
+
+    public static void onHurt(LivingHurtCallback.Event event) {
         LivingEntity victim = event.getEntity();
         Entity attacker = event.getSource().getEntity();
         if (Config.CommonConfig.nightmare_mode.get() && (attacker instanceof MagispellerEntity || attacker instanceof FakeMagispellerEntity || attacker instanceof IllashooterEntity || attacker instanceof CrashagerEntity || attacker instanceof KaboomerEntity)) {
@@ -32,7 +34,7 @@ public class NightmareEvents {
             event.setAmount((float) (event.getAmount() * Config.CommonConfig.freaky_damage_multiplier.get()));
         }
         if (Config.CommonConfig.nightmare_mode.get() && (attacker instanceof RagnoEntity || attacker instanceof OldRagnoEntity)) {
-            event.setAmount((float) (event.getAmount() * (Config.CommonConfig.ragno_damage_multiplier.get())));
+            event.setAmount((float) (event.getAmount() * Config.CommonConfig.ragno_damage_multiplier.get()));
         }
         if (Config.CommonConfig.nightmare_mode.get() && (attacker instanceof SpiritcallerEntity || attacker instanceof MobSpiritEntity || attacker instanceof IllagerSoulEntity)) {
             event.setAmount((float) (event.getAmount() * Config.CommonConfig.spiri_damage_multiplier.get()));
@@ -42,12 +44,10 @@ public class NightmareEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void replaceMobs(LivingEvent.LivingTickEvent event) {
-        Level level = event.getEntity().level();
-        Entity entity = event.getEntity();
+    public static void onLivingTick(LivingEntity entity) {
+        Level level = entity.level();
 
-        if (!Config.CommonConfig.ULTIMATE_NIGHTMARE.get() || level.isClientSide() || !(level instanceof ServerLevel) || (level.dimension() == Level.NETHER && event.getEntity() instanceof EnderMan) || entity instanceof Blaze || entity instanceof EnderDragon || ForgeRegistries.ENTITY_TYPES.getKey(entity.getType()) == null || ForgeRegistries.ENTITY_TYPES.getKey(entity.getType()).getNamespace().equals("illageandspillage")) {
+        if (!Config.CommonConfig.ULTIMATE_NIGHTMARE.get() || level.isClientSide() || !(level instanceof ServerLevel) || (level.dimension() == Level.NETHER && entity instanceof EnderMan) || entity instanceof Blaze || entity instanceof EnderDragon || BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()) == null || BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).getNamespace().equals(IllageAndSpillage.MOD_ID)) {
             return;
         }
 
@@ -62,19 +62,19 @@ public class NightmareEvents {
             if (mob.getRandom().nextDouble() < 0.05) {
                 int randomSelection = mob.getRandom().nextInt(0, 4);
                 if (randomSelection == 0) {
-                    newEntity = ModEntityTypes.Magispeller.get().create(level);
+                    newEntity = ModEntityTypes.Magispeller.create(level);
                     assert newEntity != null;
                     ((MagispellerEntity) newEntity).setActive(true);
                 } else if (randomSelection == 1) {
-                    newEntity = ModEntityTypes.Spiritcaller.get().create(level);
+                    newEntity = ModEntityTypes.Spiritcaller.create(level);
                     assert newEntity != null;
                     ((SpiritcallerEntity) newEntity).setActive(true);
                 } else if (randomSelection == 2) {
-                    newEntity = ModEntityTypes.Freakager.get().create(level);
+                    newEntity = ModEntityTypes.Freakager.create(level);
                     assert newEntity != null;
                     ((FreakagerEntity) newEntity).setActive(true);
 
-                    RagnoEntity ragno = ModEntityTypes.Ragno.get().create(level);
+                    RagnoEntity ragno = ModEntityTypes.Ragno.create(level);
                     assert ragno != null;
                     ragno.moveTo(mob.getX(), mob.getY(), mob.getZ(), mob.getYRot(), mob.getXRot());
                     ragno.setOwner(newEntity);
@@ -84,22 +84,22 @@ public class NightmareEvents {
 
                     newEntity.startRiding(ragno);
                 } else {
-                    newEntity = ModEntityTypes.Ragno.get().create(level);
+                    newEntity = ModEntityTypes.Ragno.create(level);
                 }
             } else {
                 int randomSelection = mob.getRandom().nextInt(0, 6);
                 if (randomSelection == 0) {
-                    newEntity = ModEntityTypes.Igniter.get().create(level);
+                    newEntity = ModEntityTypes.Igniter.create(level);
                 } else if (randomSelection == 1) {
-                    newEntity = ModEntityTypes.Engineer.get().create(level);
+                    newEntity = ModEntityTypes.Engineer.create(level);
                 } else if (randomSelection == 2) {
-                    newEntity = ModEntityTypes.Twittollager.get().create(level);
+                    newEntity = ModEntityTypes.Twittollager.create(level);
                 } else if (randomSelection == 3) {
-                    newEntity = ModEntityTypes.Preserver.get().create(level);
+                    newEntity = ModEntityTypes.Preserver.create(level);
                 } else if (randomSelection == 4) {
-                    newEntity = ModEntityTypes.Absorber.get().create(level);
+                    newEntity = ModEntityTypes.Absorber.create(level);
                 } else {
-                    newEntity = ModEntityTypes.Crocofang.get().create(level);
+                    newEntity = ModEntityTypes.Crocofang.create(level);
                 }
             }
 
@@ -242,7 +242,7 @@ public class NightmareEvents {
 //            entity.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ItemRegisterer.MAGI_AXE_ITEM.get()));
 //            entity.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(ItemRegisterer.MAGI_CROSSBOW_ITEM.get()));
 //        }
-}
+//    }
 
 //    @SubscribeEvent
 //    public static void misconductionAttack4(PlayerInteractEvent.RightClickEmpty event) {
@@ -253,3 +253,4 @@ public class NightmareEvents {
 //            player.getPersistentData().putInt("BeamCooldown", 680);
 //        }
 //    }
+}

@@ -10,6 +10,7 @@
     "RaidMixin"
   ],
   "client": [
+    "CameraMixin"
   ],
   "injectors": {
     "defaultRequire": 1

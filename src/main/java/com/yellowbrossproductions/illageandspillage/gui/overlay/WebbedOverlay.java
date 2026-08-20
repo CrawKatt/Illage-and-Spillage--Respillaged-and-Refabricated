@@ -6,21 +6,24 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.yellowbrossproductions.illageandspillage.Config;
+import com.yellowbrossproductions.illageandspillage.IllageAndSpillage;
 import com.yellowbrossproductions.illageandspillage.util.EntityUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 public class WebbedOverlay {
-    private static final ResourceLocation OVERLAY = new ResourceLocation("illageandspillage", "textures/entity/freakager/webbed_outline.png");
+    private static final ResourceLocation OVERLAY = new ResourceLocation(IllageAndSpillage.MOD_ID, "textures/entity/freakager/webbed_outline.png");
 
-    public static final IGuiOverlay WEBBED_OVERLAY = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
+    public static void renderWebbed(GuiGraphics gui, float partialTick, int screenWidth, int screenHeight) {
         if (Minecraft.getInstance().player != null && EntityUtil.isWebbed(Minecraft.getInstance().player)) {
-            gui.setupOverlayRenderState(true, false);
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+            RenderSystem.disableDepthTest();
             WebbedOverlay.renderScreenOverlay(OVERLAY, 1.0F, screenWidth, screenHeight);
         }
-    };
+    }
 
     public static void renderScreenOverlay(ResourceLocation p_168709_, float p_168710_, int screenWidth, int screenHeight) {
         if (!Config.ClientConfig.webbedScreen.get()) return;
