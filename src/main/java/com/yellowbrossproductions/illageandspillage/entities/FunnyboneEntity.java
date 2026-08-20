@@ -90,7 +90,7 @@ public class FunnyboneEntity extends Monster implements ICanBeAnimated, IllagerA
 
     @Override
     public boolean canBeAffected(MobEffectInstance p_21197_) {
-        return (!this.isGoopy() || p_21197_.getEffect() != EffectRegisterer.MUTATION.get()) && super.canBeAffected(p_21197_);
+        return (!this.isGoopy() || p_21197_.getEffect() != EffectRegisterer.MUTATION) && super.canBeAffected(p_21197_);
     }
 
     @Override
@@ -101,17 +101,17 @@ public class FunnyboneEntity extends Monster implements ICanBeAnimated, IllagerA
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isFlying() ? null : IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_FUNNYBONE_AMBIENT.get();
+        return this.isFlying() ? null : IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_FUNNYBONE_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_33034_) {
-        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_FUNNYBONE_HURT.get();
+        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_FUNNYBONE_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_FUNNYBONE_DEATH.get();
+        return IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_FUNNYBONE_DEATH;
     }
 
     @Override
@@ -278,7 +278,7 @@ public class FunnyboneEntity extends Monster implements ICanBeAnimated, IllagerA
             }
 
             if (this.throwTicks == 7) {
-                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_FUNNYBONE_THROW.get(), this.getSoundVolume(), this.getVoicePitch());
+                this.playSound(IllageAndSpillageSoundEvents.ENTITY_FREAKAGER_FUNNYBONE_THROW, this.getSoundVolume(), this.getVoicePitch());
                 this.playSound(SoundEvents.WITCH_THROW, 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
                 this.setShowBone(false);
 

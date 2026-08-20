@@ -31,7 +31,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
@@ -175,7 +175,7 @@ public class BossRandomizerEntity extends AbstractIllager {
             Collections.shuffle(mobSpawns);
             int randomIndex = this.getRandom().nextInt(mobSpawns.size());
             String randomMobID = mobSpawns.get(randomIndex);
-            EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(randomMobID));
+            EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(new ResourceLocation(randomMobID));
             if (entityType == null) {
                 return false;
             } else {
@@ -207,7 +207,7 @@ public class BossRandomizerEntity extends AbstractIllager {
             Collections.shuffle(mobSpawns);
             int randomIndex = this.getRandom().nextInt(mobSpawns.size());
             String randomMobID = mobSpawns.get(randomIndex);
-            EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(randomMobID));
+            EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(new ResourceLocation(randomMobID));
             if (entityType == null) {
                 return false;
             } else {

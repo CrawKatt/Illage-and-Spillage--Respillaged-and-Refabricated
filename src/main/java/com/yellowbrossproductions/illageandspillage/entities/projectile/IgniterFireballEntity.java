@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.event.ForgeEventFactory;
+import com.yellowbrossproductions.illageandspillage.event.custom.MobGriefingCallback;
 
 public class IgniterFireballEntity extends SmallFireball {
     public IgniterFireballEntity(EntityType<? extends SmallFireball> p_37364_, Level p_37365_) {
@@ -27,7 +27,7 @@ public class IgniterFireballEntity extends SmallFireball {
     protected void onHitBlock(BlockHitResult p_37384_) {
         BlockState blockstate = this.level().getBlockState(p_37384_.getBlockPos());
         blockstate.onProjectileHit(this.level(), blockstate, p_37384_, this);
-        if (Config.CommonConfig.igniter_canBurnBlocks.get() && !this.level().isClientSide && ForgeEventFactory.getMobGriefingEvent(this.level(), this)) {
+        if (Config.CommonConfig.igniter_canBurnBlocks.get() && !this.level().isClientSide && MobGriefingCallback.getMobGriefingEvent(this.level(), this)) {
             BlockPos blockpos = p_37384_.getBlockPos().relative(p_37384_.getDirection());
             if (this.level().isEmptyBlock(blockpos)) {
                 this.level().setBlockAndUpdate(blockpos, BaseFireBlock.getState(this.level(), blockpos));

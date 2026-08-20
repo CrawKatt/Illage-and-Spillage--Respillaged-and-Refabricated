@@ -83,7 +83,7 @@ public class FactoryEntity extends Raider implements ICanBeAnimated, EngineerMac
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_DISPENSER_DESTROY.get();
+        return IllageAndSpillageSoundEvents.ENTITY_MAGISPELLER_DISPENSER_DESTROY;
     }
 
     @Override
@@ -194,7 +194,7 @@ public class FactoryEntity extends Raider implements ICanBeAnimated, EngineerMac
                 int randomSelection = this.random.nextInt(0, 3);
                 if (!this.level().isClientSide) {
                     if (randomSelection == 0) {
-                        BeeperEntity beeper = ModEntityTypes.Beeper.get().create(this.level());
+                        BeeperEntity beeper = ModEntityTypes.Beeper.create(this.level());
 
                         assert beeper != null;
 
@@ -211,7 +211,7 @@ public class FactoryEntity extends Raider implements ICanBeAnimated, EngineerMac
 
                         this.level().addFreshEntity(beeper);
                     } else if (randomSelection == 1) {
-                        SniperEntity sniper = ModEntityTypes.Sniper.get().create(this.level());
+                        SniperEntity sniper = ModEntityTypes.Sniper.create(this.level());
 
                         assert sniper != null;
 
@@ -228,7 +228,7 @@ public class FactoryEntity extends Raider implements ICanBeAnimated, EngineerMac
 
                         this.level().addFreshEntity(sniper);
                     } else {
-                        PokerEntity poker = ModEntityTypes.Poker.get().create(this.level());
+                        PokerEntity poker = ModEntityTypes.Poker.create(this.level());
 
                         assert poker != null;
 

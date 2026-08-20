@@ -32,8 +32,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.event.entity.EntityTeleportEvent;
+import com.yellowbrossproductions.illageandspillage.event.custom.EntityTeleportCallback;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -184,7 +183,8 @@ public class FakeMagispellerEntity extends AbstractIllager {
         boolean flag = blockstate.blocksMotion();
         boolean flag1 = blockstate.getFluidState().is(FluidTags.WATER);
         if (flag && !flag1) {
-            EntityTeleportEvent.EnderEntity event = ForgeEventFactory.onEnderTeleport(this, p_70825_1_, p_70825_3_, p_70825_5_);
+            EntityTeleportCallback.Event event = new EntityTeleportCallback.Event(this, p_70825_1_, p_70825_3_, p_70825_5_);
+            EntityTeleportCallback.EVENT.invoker().onEntityTeleport(event);
             if (event.isCanceled()) {
                 return false;
             } else {
